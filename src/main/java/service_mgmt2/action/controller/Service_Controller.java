@@ -1,4 +1,4 @@
-package service_mgmt.action.controller;
+package service_mgmt2.action.controller;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import service_mgmt.action.services.I_Service_Master_Service;
-import service_mgmt.common.model.ServiceMasterDTO;
+import service_mgmt2.action.services.I_Service_Master_Service;
+import service_mgmt2.common.model.ServiceMasterDTO;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;

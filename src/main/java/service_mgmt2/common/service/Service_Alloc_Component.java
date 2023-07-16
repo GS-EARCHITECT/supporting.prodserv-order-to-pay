@@ -1,4 +1,4 @@
-package service_mgmt.common.service;
+package service_mgmt2.common.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

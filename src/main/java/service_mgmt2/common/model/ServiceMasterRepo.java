@@ -1,4 +1,4 @@
-package service_mgmt.common.model;
+package service_mgmt2.common.model;
 
 
 import java.util.ArrayList;

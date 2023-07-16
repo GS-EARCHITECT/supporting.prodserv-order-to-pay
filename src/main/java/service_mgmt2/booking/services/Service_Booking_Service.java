@@ -1,4 +1,4 @@
-package service_mgmt.booking.services;
+package service_mgmt2.booking.services;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import service_mgmt.common.model.ServiceMaster;
-import service_mgmt.common.model.ServiceMasterDTO;
-import service_mgmt.common.model.ServiceMasterRepo;
+
+import service_mgmt2.common.model.ServiceMaster;
+import service_mgmt2.common.model.ServiceMasterDTO;
+import service_mgmt2.common.model.ServiceMasterRepo;
 
 @Service("serviceBookingServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)

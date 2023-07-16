@@ -1,8 +1,8 @@
-package service_mgmt.common.service;
+package service_mgmt2.common.service;
 
 import java.util.ArrayList;
 
-import service_mgmt.common.model.ServiceMasterDTO;
+import service_mgmt2.common.model.ServiceMasterDTO;
 
 
 public interface I_Service_Alloc_Service {

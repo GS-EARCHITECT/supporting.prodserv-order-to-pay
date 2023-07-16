@@ -1,8 +1,8 @@
-package service_mgmt.booking.services;
+package service_mgmt2.booking.services;
 
 import java.util.ArrayList;
 
-import service_mgmt.common.model.ServiceMasterDTO;
+import service_mgmt2.common.model.ServiceMasterDTO;
 
 
 public interface I_Service_Booking_Service {
