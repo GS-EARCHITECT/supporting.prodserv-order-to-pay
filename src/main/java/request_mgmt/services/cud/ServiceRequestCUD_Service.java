@@ -1,4 +1,4 @@
-package request_mgmt.services;
+package request_mgmt.services.cud;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -16,122 +16,37 @@ import request_mgmt.model.dto.ServiceRequestStatusDetails_DTO;
 import request_mgmt.model.master.ServiceRequestMaster;
 import request_mgmt.model.master.ServiceRequestStatusDetails;
 import request_mgmt.model.master.ServiceRequestStatusDetailsPK;
-import request_mgmt.model.repo.ServiceRequestMaster_Repo;
-import request_mgmt.model.repo.ServiceRequestStatusDetails_Repo;
+import request_mgmt.model.repo.cud.ServiceRequestMasterCUD_Repo;
+import request_mgmt.model.repo.cud.ServiceRequestStatusDetailsCUD_Repo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Service("serviceRequestServ")
+@Service("serviceRequestCUDServ")
 @Transactional(propagation=Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED)
-public class ServiceRequest_Service implements IServiceRequest_Service 
+public class ServiceRequestCUD_Service implements IServiceRequestCUD_Service 
 {	
-	private static final Logger logger = LoggerFactory.getLogger(ServiceRequest_Service.class);
+	//private static final Logger logger = LoggerFactory.getLogger(ServiceRequest_Service.class);
 	
 	@Autowired
-    private ServiceRequestMaster_Repo serviceRequestRepo;
+    private ServiceRequestMasterCUD_Repo serviceRequestCUDRepo;
 	
 	@Autowired
     private Executor asyncExecutor;
 	
 	@Autowired
-	private ServiceRequestStatusDetails_Repo serviceRequestStatusRepo;
+	private ServiceRequestStatusDetailsCUD_Repo serviceRequestStatusCUDRepo;
 
 /* SERVICE REQUEST MASTER */	
 	
-    @Override
-	public CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> getAllServiceRequests()
-    {
-    	CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{		
-		ArrayList<ServiceRequestMaster> servReqList = null;    	
-    	servReqList =  (ArrayList<ServiceRequestMaster>) serviceRequestRepo.findAll();
-    	ArrayList<ServiceRequestMaster_DTO> lMasters = new ArrayList<ServiceRequestMaster_DTO>();
-    	lMasters = servReqList != null ? this.getServRequestDtos(servReqList) : null;        
-   		return lMasters;
-   		},asyncExecutor);
-    	
-        return future;
-    }
-    
-    @Override
-	public CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> getSelectRequests(ArrayList<Long> serviceReqSeqNos)
-    {
-    	CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-    	ArrayList<ServiceRequestMaster> lMasters = serviceRequestRepo.getSelectRequests(serviceReqSeqNos);
-    	ArrayList<ServiceRequestMaster_DTO> servMasterDTOs = lMasters != null ? this.getServRequestDtos(lMasters): null;
-    	return servMasterDTOs;
-   		},asyncExecutor);
-    	
-        return future;
-    }
-    
-    @Override
-	public CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> getSelectRequestsByCompanies(ArrayList<Long> cList)
-    {
-    	CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-		{
-    	ArrayList<ServiceRequestMaster> lMasters = serviceRequestRepo.getSelectRequestsByCompanies(cList);
-    	ArrayList<ServiceRequestMaster_DTO> servMasterDTOs = lMasters != null ? this.getServRequestDtos(lMasters): null;
-    	return servMasterDTOs;
-   		},asyncExecutor);
-    	
-        return future;
-    }
-    
-    @Override
-  	public CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> getSelectRequestsByPeople(ArrayList<Long> pList)
-      {
-      	CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-  		{
-      	ArrayList<ServiceRequestMaster> lMasters = serviceRequestRepo.getSelectRequestsByPeople(pList);
-      	ArrayList<ServiceRequestMaster_DTO> servMasterDTOs = lMasters != null ? this.getServRequestDtos(lMasters): null;
-      	return servMasterDTOs;
-     		},asyncExecutor);
-      	
-          return future;
-      }
-    
-    @Override
-  	public CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> getSelectRequestsBySuppliers(ArrayList<Long> sList)
-      {
-      	CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-  		{
-      	ArrayList<ServiceRequestMaster> lMasters = serviceRequestRepo.getSelectRequestsBySuppliers(sList);
-      	ArrayList<ServiceRequestMaster_DTO> servMasterDTOs = lMasters != null ? this.getServRequestDtos(lMasters): null;
-      	return servMasterDTOs;
-     		},asyncExecutor);
-      	
-          return future;
-      }
-    
-    @Override
-  	public CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> getSelectRequestsBetweenTimes(String frDtTm, String toDtTm)
-      {
-      	CompletableFuture<ArrayList<ServiceRequestMaster_DTO>> future = CompletableFuture.supplyAsync(() -> 
-  		{
-  		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-  		LocalDateTime frDTTm = LocalDateTime.parse(frDtTm, formatter);
-  		LocalDateTime toDTTm = LocalDateTime.parse(toDtTm, formatter);
-  		Timestamp frTs = Timestamp.valueOf(frDTTm);
-  		Timestamp toTs = Timestamp.valueOf(toDTTm);
-      	ArrayList<ServiceRequestMaster> lMasters = serviceRequestRepo.getSelectRequestsBetweenTimes(frTs, toTs);
-      	ArrayList<ServiceRequestMaster_DTO> servMasterDTOs = lMasters != null ? this.getServRequestDtos(lMasters): null;
-      	return servMasterDTOs;
-     	},asyncExecutor);
-      	
-          return future;
-      }
-        
     @Override
 	public CompletableFuture<ServiceRequestMaster_DTO> newCustServiceRequest(ServiceRequestMaster_DTO srvReqDTO) 
     {    
 		CompletableFuture<ServiceRequestMaster_DTO> future = CompletableFuture.supplyAsync(() -> 
   		{
   		ServiceRequestMaster_DTO serviceRequestDTO = new ServiceRequestMaster_DTO();  		
-  		if(!serviceRequestRepo.existsById(srvReqDTO.getRequestSeqNo()))
+  		if(!serviceRequestCUDRepo.existsById(srvReqDTO.getRequestSeqNo()))
   		{	
-  		ServiceRequestMaster serviceRequestMaster = serviceRequestRepo.save(this.setServiceRequestMaster(srvReqDTO));    
+  		ServiceRequestMaster serviceRequestMaster = serviceRequestCUDRepo.save(this.setServiceRequestMaster(srvReqDTO));    
   		serviceRequestDTO = this.getServiceRequestMaster_DTO(serviceRequestMaster);
   		}
   		return serviceRequestDTO;
@@ -145,11 +60,11 @@ public class ServiceRequest_Service implements IServiceRequest_Service
     {
     	CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-    	if(serviceRequestRepo.existsById(servReqDTO.getRequestSeqNo()))
+    	if(serviceRequestCUDRepo.existsById(servReqDTO.getRequestSeqNo()))
     	{
         ServiceRequestMaster serviceRequestMaster = this.setServiceRequestMaster(servReqDTO);
         serviceRequestMaster.setRequestSeqNo(servReqDTO.getRequestSeqNo());
-    	serviceRequestRepo.save(serviceRequestMaster);
+    	serviceRequestCUDRepo.save(serviceRequestMaster);
     	}	
      	},asyncExecutor);      	
         return future;    
@@ -159,7 +74,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
     {
     	CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-    	serviceRequestRepo.delSelectRequests(cList);
+    	serviceRequestCUDRepo.delSelectRequests(cList);
     	},asyncExecutor);      	
         return future;
     }
@@ -168,7 +83,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
 	{
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-    	serviceRequestRepo.delSelectRequestsByCompanies(cList);
+    	serviceRequestCUDRepo.delSelectRequestsByCompanies(cList);
     	},asyncExecutor);      	
         return future;
 		
@@ -178,7 +93,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
 	{
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-    	serviceRequestRepo.delSelectRequestsByPeople(pList);
+    	serviceRequestCUDRepo.delSelectRequestsByPeople(pList);
     	},asyncExecutor);      	
         return future;
 	}
@@ -187,7 +102,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
 	{
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-    	serviceRequestRepo.delSelectRequestsBySuppliers(sList);
+    	serviceRequestCUDRepo.delSelectRequestsBySuppliers(sList);
     	},asyncExecutor);      	
         return future;	
 	}
@@ -201,7 +116,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
   	  	LocalDateTime toDTTm = LocalDateTime.parse(toDtTm, formatter);
   	  	Timestamp frTs = Timestamp.valueOf(frDTTm);
   	  	Timestamp toTs = Timestamp.valueOf(toDTTm);
-    	serviceRequestRepo.delSelectRequestsBetweenTimes(frTs, toTs);
+    	serviceRequestCUDRepo.delSelectRequestsBetweenTimes(frTs, toTs);
     	},asyncExecutor);      	
         return future;	
 	}
@@ -212,7 +127,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
     {
     	CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-  		serviceRequestRepo.deleteAll();
+  		serviceRequestCUDRepo.deleteAll();
     	},asyncExecutor);      	
         return future;    
     }
@@ -271,9 +186,9 @@ public class ServiceRequest_Service implements IServiceRequest_Service
         Timestamp ts = Timestamp.valueOf(dateTime);
         serviceRequestDetailsPK.setOnDate(ts);
         serviceRequestDetailsPK.setRequestSeqNo(srvReqStatusDTO.getRequestSeqNo());
-        if(!serviceRequestStatusRepo.existsById(serviceRequestDetailsPK))
+        if(!serviceRequestStatusCUDRepo.existsById(serviceRequestDetailsPK))
         {   
-        serviceRequestStatusDTO = this.getServiceRequestStatusDTO(serviceRequestStatusRepo.save(this.setServiceRequestStatusDetails(srvReqStatusDTO)));
+        serviceRequestStatusDTO = this.getServiceRequestStatusDTO(serviceRequestStatusCUDRepo.save(this.setServiceRequestStatusDetails(srvReqStatusDTO)));
         }
         return serviceRequestStatusDTO;
      	},asyncExecutor);
@@ -281,45 +196,6 @@ public class ServiceRequest_Service implements IServiceRequest_Service
 	return future;
     }    
     
-	public CompletableFuture<ArrayList<ServiceRequestStatusDetails_DTO>> getSelectRequestStatus(ArrayList<Long> rList)
-	{
-	  	CompletableFuture<ArrayList<ServiceRequestStatusDetails_DTO>> future = CompletableFuture.supplyAsync(() -> 
-  		{
-  		ArrayList<ServiceRequestStatusDetails> lMasters = new ArrayList<ServiceRequestStatusDetails>();  	
-      	lMasters = serviceRequestStatusRepo.getSelectRequestStatus(rList);
-      	ArrayList<ServiceRequestStatusDetails_DTO> servMasterDTOs = lMasters != null ? this.getServRequestStatusDtos(lMasters): null;
-      	return servMasterDTOs;
-     	},asyncExecutor);      	
-        return future;    	
-	}
-	
-	public CompletableFuture<ArrayList<ServiceRequestStatusDetails_DTO>> getSelectRequestStatusBetweenTimes(String frDtTm, String toDtTm)
-	{
-	  	CompletableFuture<ArrayList<ServiceRequestStatusDetails_DTO>> future = CompletableFuture.supplyAsync(() -> 
-  		{
-  		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-  		LocalDateTime frDTTm = LocalDateTime.parse(frDtTm, formatter);
-  		LocalDateTime toDTTm = LocalDateTime.parse(toDtTm, formatter);
-  		Timestamp frTs = Timestamp.valueOf(frDTTm);
-  		Timestamp toTs = Timestamp.valueOf(toDTTm);  		
-      	ArrayList<ServiceRequestStatusDetails> lMasters = serviceRequestStatusRepo.getSelectRequestStatusBetweenTimes(frTs, toTs);
-      	ArrayList<ServiceRequestStatusDetails_DTO> servMasterDTOs = lMasters != null ? this.getServRequestStatusDtos(lMasters): null;
-      	return servMasterDTOs;
-     	},asyncExecutor);      	
-          return future;    	
-	}
-	
-	public CompletableFuture<ArrayList<ServiceRequestStatusDetails_DTO>> getAllServiceStatusDetails()
-	{
-		CompletableFuture<ArrayList<ServiceRequestStatusDetails_DTO>> future = CompletableFuture.supplyAsync(() -> 
-  		{
-  		ArrayList<ServiceRequestStatusDetails> lMasters = (ArrayList<ServiceRequestStatusDetails>)serviceRequestStatusRepo.findAll();
-      	ArrayList<ServiceRequestStatusDetails_DTO> servMasterDTOs = lMasters != null ? this.getServRequestStatusDtos(lMasters): null;
-      	return servMasterDTOs;
-     	},asyncExecutor);      	
-         return future; 
-	}
-	
 	@Override
 	public CompletableFuture<Void> updCustServiceRequestStatus(ServiceRequestStatusDetails_DTO srvReqDTO) 
     {
@@ -332,9 +208,9 @@ public class ServiceRequest_Service implements IServiceRequest_Service
   	  	serviceRequestDetailsPK.setOnDate(onTs);
   	    serviceRequestDetailsPK.setRequestSeqNo(srvReqDTO.getRequestSeqNo());
   	    
-    	if(serviceRequestStatusRepo.existsById(serviceRequestDetailsPK))
+    	if(serviceRequestStatusCUDRepo.existsById(serviceRequestDetailsPK))
     	{    	
-    	serviceRequestStatusRepo.save(this.setServiceRequestStatusDetails(srvReqDTO));
+    	serviceRequestStatusCUDRepo.save(this.setServiceRequestStatusDetails(srvReqDTO));
     	}	
      	},asyncExecutor);      	
         return future;    
@@ -344,7 +220,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
 	{
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-  		serviceRequestStatusRepo.delSelectRequestStatus(rList);
+  		serviceRequestStatusCUDRepo.delSelectRequestStatus(rList);
     	},asyncExecutor);      	
         return future;
 	}
@@ -358,7 +234,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
   	  	LocalDateTime toDTTm = LocalDateTime.parse(toDtTm, formatter);
   	  	Timestamp frTs = Timestamp.valueOf(frDTTm);
   	  	Timestamp toTs = Timestamp.valueOf(toDTTm);
-  	  	serviceRequestStatusRepo.delSelectRequestStatusBetweenTimes(frTs, toTs);
+  	  	serviceRequestStatusCUDRepo.delSelectRequestStatusBetweenTimes(frTs, toTs);
     	},asyncExecutor);      	
         return future;
 	}
@@ -367,7 +243,7 @@ public class ServiceRequest_Service implements IServiceRequest_Service
 	{
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> 
   		{
-  		serviceRequestStatusRepo.deleteAll();
+  		serviceRequestStatusCUDRepo.deleteAll();
     	},asyncExecutor);      	
         return future;
 	}
