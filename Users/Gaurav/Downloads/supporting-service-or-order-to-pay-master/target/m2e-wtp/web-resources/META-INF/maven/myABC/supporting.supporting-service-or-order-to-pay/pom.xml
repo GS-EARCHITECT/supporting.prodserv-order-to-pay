@@ -22,7 +22,8 @@
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<spring-cloud.version>2020.0.6</spring-cloud.version>		
+		<spring-cloud.version>2020.0.6</spring-cloud.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 
 	<dependencies>

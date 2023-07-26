@@ -26,8 +26,8 @@ public interface JobWorkMasterRead_Repo extends JpaRepository<JobWorkMaster, Lon
 	@Query(value = "SELECT * FROM JOB_MASTER where SERVICE_SEQ_NO in :servSeqNos ORDER BY SERVICE_WORK_SEQ_NO",nativeQuery = true) 
 	CopyOnWriteArrayList<JobWorkMaster> getSelectJobServicesForServices(@Param("servSeqNos") CopyOnWriteArrayList<Long> servSeqNos);
 	
-	@Query(value = "SELECT * FROM JOB_MASTER where trim(job_ref_id) = :jobrefId ORDER BY SERVICE_WORK_SEQ_NO",nativeQuery = true) 
-	CopyOnWriteArrayList<JobWorkMaster> getJobServiceForRefNo(@Param("jobrefId") String jobrefId);
+	@Query(value = "SELECT * FROM JOB_MASTER where upper(trim(job_ref_id)) in :jobrefIds ORDER BY SERVICE_WORK_SEQ_NO",nativeQuery = true) 
+	CopyOnWriteArrayList<JobWorkMaster> getJobServiceForRefNos(@Param("jobrefIds") CopyOnWriteArrayList<String> jobrefIds);
 	
 	@Query(value = "SELECT * FROM JOB_MASTER where (CREATED_ON >= :frDtTm and CREATED_ON <= :toDtTm) ORDER BY SERVICE_WORK_SEQ_NO",nativeQuery = true) 
 	CopyOnWriteArrayList<JobWorkMaster> getSelectJobServicesBetweenTimes(@Param("frDtTm") Timestamp frDtTm, @Param("toDtTm") Timestamp toDtTm);
