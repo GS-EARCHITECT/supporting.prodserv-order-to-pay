@@ -2,14 +2,13 @@ package job_mgmt.job_work_details_mgmt.model.dto;
 
 import java.io.Serializable;
 
-public class JobDetails_DTO implements Serializable 
-{
+public class JobWorkDetail_DTO implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3431763572172440976L;
-	private long jobWorkSeqNo;
-	private long seqNo;
+	private Long jobWorkSeqNo;
+	private Long seqNo;
 	private Long jobTemplateSeqNo;
 	private Long targetSeqNo;
 	private String actEndDate;
@@ -23,16 +22,32 @@ public class JobDetails_DTO implements Serializable
 	private String remarks;
 	private String status;
 
-	public long getJobSeqNo() {
+	public Long getJobSeqNo() {
 		return jobWorkSeqNo;
 	}
 
-	public void setJobSeqNo(long jobWorkSeqNo) {
+	public void setJobSeqNo(Long jobWorkSeqNo) {
 		this.jobWorkSeqNo = jobWorkSeqNo;
 	}
 
 	public String getActEndDate() {
 		return actEndDate;
+	}
+
+	public Long getJobWorkSeqNo() {
+		return jobWorkSeqNo;
+	}
+
+	public void setJobWorkSeqNo(Long jobWorkSeqNo) {
+		this.jobWorkSeqNo = jobWorkSeqNo;
+	}
+
+	public Long getParentJobWorkSeqNo() {
+		return parentJobWorkSeqNo;
+	}
+
+	public void setParentJobWorkSeqNo(Long parentJobWorkSeqNo) {
+		this.parentJobWorkSeqNo = parentJobWorkSeqNo;
 	}
 
 	public void setActEndDate(String actEndDate) {
@@ -45,14 +60,6 @@ public class JobDetails_DTO implements Serializable
 
 	public void setActStartDate(String actStartDate) {
 		this.actStartDate = actStartDate;
-	}
-
-	public Long getJobTypeSeqNo() {
-		return jobSeqNo;
-	}
-
-	public void setJobTypeSeqNo(Long jobSeqNo) {
-		this.jobSeqNo = jobSeqNo;
 	}
 
 	public Long getManagerSeqNo() {
@@ -119,7 +126,7 @@ public class JobDetails_DTO implements Serializable
 		this.jobTemplateSeqNo = jobTemplateSeqNo;
 	}
 
-	public JobDetails_DTO() {
+	public JobWorkDetail_DTO() {
 		super();
 	}
 
@@ -131,18 +138,17 @@ public class JobDetails_DTO implements Serializable
 		this.targetSeqNo = targetSeqNo;
 	}
 
-	public long getSeqNo() {
+	public Long getSeqNo() {
 		return seqNo;
 	}
 
-	public void setSeqNo(long seqNo) {
+	public void setSeqNo(Long seqNo) {
 		this.seqNo = seqNo;
 	}
 
-	public JobDetails_DTO(long jobWorkSeqNo, long seqNo, Long jobTemplateSeqNo, Long targetSeqNo, String actEndDate,
+	public JobWorkDetail_DTO(Long jobWorkSeqNo, Long seqNo, Long jobTemplateSeqNo, Long targetSeqNo, String actEndDate,
 			String actStartDate, Long jobSeqNo, Long managerSeqNo, Long parentJobWorkSeqNo, String planEndDate,
-			String planStartDate, Long serviceWorkSeqNo, String remarks, String status) 
-	{
+			String planStartDate, Long serviceWorkSeqNo, String remarks, String status) {
 		super();
 		this.jobWorkSeqNo = jobWorkSeqNo;
 		this.seqNo = seqNo;
@@ -159,5 +165,7 @@ public class JobDetails_DTO implements Serializable
 		this.remarks = remarks;
 		this.status = status;
 	}
+
+
 
 }

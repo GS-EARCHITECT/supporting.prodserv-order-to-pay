@@ -9,9 +9,8 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table(name = "JOB_DETAILS")
-public class JobDetails implements Serializable 
-{
+@Table(name = "JOB_WORK_DETAILS")
+public class JobWorkDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -83,12 +82,20 @@ public class JobDetails implements Serializable
 		this.actStartDate = actStartDate;
 	}
 
-	public Long getJobTypeSeqNo() {
-		return jobSeqNo;
+	public Long getJobWorkSeqNo() {
+		return jobWorkSeqNo;
 	}
 
-	public void setJobTypeSeqNo(Long jobSeqNo) {
-		this.jobSeqNo = jobSeqNo;
+	public void setJobWorkSeqNo(Long jobWorkSeqNo) {
+		this.jobWorkSeqNo = jobWorkSeqNo;
+	}
+
+	public Long getParentJobWorkSeqNo() {
+		return parentJobWorkSeqNo;
+	}
+
+	public void setParentJobWorkSeqNo(Long parentJobWorkSeqNo) {
+		this.parentJobWorkSeqNo = parentJobWorkSeqNo;
 	}
 
 	public Long getManagerSeqNo() {
@@ -171,21 +178,41 @@ public class JobDetails implements Serializable
 		this.seqNo = seqNo;
 	}
 
+	public JobWorkDetail(Long jobWorkSeqNo, Long targetSeqNo, Long jobTemplateSeqNo, Timestamp actEndDate,
+			Timestamp actStartDate, Long jobSeqNo, Long seqNo, Long managerSeqNo, Long parentJobWorkSeqNo,
+			Timestamp planEndDate, Timestamp planStartDate, Long serviceWorkSeqNo, String remarks, String status) {
+		super();
+		this.jobWorkSeqNo = jobWorkSeqNo;
+		this.targetSeqNo = targetSeqNo;
+		this.jobTemplateSeqNo = jobTemplateSeqNo;
+		this.actEndDate = actEndDate;
+		this.actStartDate = actStartDate;
+		this.jobSeqNo = jobSeqNo;
+		this.seqNo = seqNo;
+		this.managerSeqNo = managerSeqNo;
+		this.parentJobWorkSeqNo = parentJobWorkSeqNo;
+		this.planEndDate = planEndDate;
+		this.planStartDate = planStartDate;
+		this.serviceWorkSeqNo = serviceWorkSeqNo;
+		this.remarks = remarks;
+		this.status = status;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((actEndDate == null) ? 0 : actEndDate.hashCode());
 		result = prime * result + ((actStartDate == null) ? 0 : actStartDate.hashCode());
-		result = prime * result + (int) (jobWorkSeqNo ^ (jobWorkSeqNo >>> 32));
-		result = prime * result + ((jobTemplateSeqNo == null) ? 0 : jobTemplateSeqNo.hashCode());
 		result = prime * result + ((jobSeqNo == null) ? 0 : jobSeqNo.hashCode());
+		result = prime * result + ((jobTemplateSeqNo == null) ? 0 : jobTemplateSeqNo.hashCode());
+		result = prime * result + ((jobWorkSeqNo == null) ? 0 : jobWorkSeqNo.hashCode());
 		result = prime * result + ((managerSeqNo == null) ? 0 : managerSeqNo.hashCode());
 		result = prime * result + ((parentJobWorkSeqNo == null) ? 0 : parentJobWorkSeqNo.hashCode());
 		result = prime * result + ((planEndDate == null) ? 0 : planEndDate.hashCode());
 		result = prime * result + ((planStartDate == null) ? 0 : planStartDate.hashCode());
 		result = prime * result + ((remarks == null) ? 0 : remarks.hashCode());
-		result = prime * result + (int) (seqNo ^ (seqNo >>> 32));
+		result = prime * result + ((seqNo == null) ? 0 : seqNo.hashCode());
 		result = prime * result + ((serviceWorkSeqNo == null) ? 0 : serviceWorkSeqNo.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((targetSeqNo == null) ? 0 : targetSeqNo.hashCode());
@@ -200,7 +227,7 @@ public class JobDetails implements Serializable
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		JobDetails other = (JobDetails) obj;
+		JobWorkDetail other = (JobWorkDetail) obj;
 		if (actEndDate == null) {
 			if (other.actEndDate != null)
 				return false;
@@ -211,17 +238,20 @@ public class JobDetails implements Serializable
 				return false;
 		} else if (!actStartDate.equals(other.actStartDate))
 			return false;
-		if (jobWorkSeqNo != other.jobWorkSeqNo)
+		if (jobSeqNo == null) {
+			if (other.jobSeqNo != null)
+				return false;
+		} else if (!jobSeqNo.equals(other.jobSeqNo))
 			return false;
 		if (jobTemplateSeqNo == null) {
 			if (other.jobTemplateSeqNo != null)
 				return false;
 		} else if (!jobTemplateSeqNo.equals(other.jobTemplateSeqNo))
 			return false;
-		if (jobSeqNo == null) {
-			if (other.jobSeqNo != null)
+		if (jobWorkSeqNo == null) {
+			if (other.jobWorkSeqNo != null)
 				return false;
-		} else if (!jobSeqNo.equals(other.jobSeqNo))
+		} else if (!jobWorkSeqNo.equals(other.jobWorkSeqNo))
 			return false;
 		if (managerSeqNo == null) {
 			if (other.managerSeqNo != null)
@@ -248,7 +278,10 @@ public class JobDetails implements Serializable
 				return false;
 		} else if (!remarks.equals(other.remarks))
 			return false;
-		if (seqNo != other.seqNo)
+		if (seqNo == null) {
+			if (other.seqNo != null)
+				return false;
+		} else if (!seqNo.equals(other.seqNo))
 			return false;
 		if (serviceWorkSeqNo == null) {
 			if (other.serviceWorkSeqNo != null)
@@ -268,27 +301,7 @@ public class JobDetails implements Serializable
 		return true;
 	}
 
-	public JobDetails(Long jobWorkSeqNo, Long targetSeqNo, Long jobTemplateSeqNo, Timestamp actEndDate,
-			Timestamp actStartDate, Long jobSeqNo, Long seqNo, Long managerSeqNo, Long parentJobWorkSeqNo,
-			Timestamp planEndDate, Timestamp planStartDate, Long serviceWorkSeqNo, String remarks, String status) {
-		super();
-		this.jobWorkSeqNo = jobWorkSeqNo;
-		this.targetSeqNo = targetSeqNo;
-		this.jobTemplateSeqNo = jobTemplateSeqNo;
-		this.actEndDate = actEndDate;
-		this.actStartDate = actStartDate;
-		this.jobSeqNo = jobSeqNo;
-		this.seqNo = seqNo;
-		this.managerSeqNo = managerSeqNo;
-		this.parentJobWorkSeqNo = parentJobWorkSeqNo;
-		this.planEndDate = planEndDate;
-		this.planStartDate = planStartDate;
-		this.serviceWorkSeqNo = serviceWorkSeqNo;
-		this.remarks = remarks;
-		this.status = status;
-	}
-
-	public JobDetails() {
+	public JobWorkDetail() {
 		super();
 	}
 

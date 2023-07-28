@@ -1,4 +1,4 @@
-package job_mgmt.job_work_details_mgmt.controller.read;
+package job_mgmt.job_work_details_mgmt.controller.sched;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
