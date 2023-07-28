@@ -35,12 +35,12 @@ import job_mgmt.job_work_master_mgmt.model.repo.read.JobWorkMasterRead_Repo;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Service("jobWorkDetailsScheduleServ")
+@Service("jobWorkDetailsSchedulerServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-public class JobWorkDetailSchedule_Service implements I_JobWorkDetailsSchedule_Service 
+public class JobWorkDetailsSchedule_Service implements I_JobWorkDetailsSchedule_Service 
 {
 
-	private static final Logger logger = LoggerFactory.getLogger(JobWorkDetailSchedule_Service.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobWorkDetailsSchedule_Service.class);
 
 	@Autowired
 	private WebClient webClient;
@@ -108,7 +108,7 @@ public class JobWorkDetailSchedule_Service implements I_JobWorkDetailsSchedule_S
 			jobWorkDetailsCUDRepo.delSelectJobWorkDetailsForService(servWorkSeqNo);
 		}
 
-		CompletableFuture<CopyOnWriteArrayList<JobWorkDetail_DTO>> completableFuture = this.processJobWorkDetail(jobTemplateSeqNo, startDateTime, opFlag);
+		CompletableFuture<CopyOnWriteArrayList<JobWorkDetail_DTO>> completableFuture = this.processJobWorkDetails(jobTemplateSeqNo, startDateTime, opFlag);
 		CopyOnWriteArrayList<JobWorkDetail_DTO> jobDetailsDTOs = completableFuture.join();
 		
 		// Create Job Schedule
@@ -124,7 +124,7 @@ public class JobWorkDetailSchedule_Service implements I_JobWorkDetailsSchedule_S
 
 	}
 
-	public CompletableFuture<CopyOnWriteArrayList<JobWorkDetail_DTO>> processJobWorkDetail(Long jobTemplateSeqNo, String startDateTime, Integer opFlag) 
+	public CompletableFuture<CopyOnWriteArrayList<JobWorkDetail_DTO>> processJobWorkDetails(Long jobTemplateSeqNo, String startDateTime, Integer opFlag) 
 	{
 		CompletableFuture<CopyOnWriteArrayList<JobWorkDetail_DTO>> future = CompletableFuture.supplyAsync(() -> 
 		{
