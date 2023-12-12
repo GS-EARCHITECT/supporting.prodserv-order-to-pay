@@ -67,7 +67,7 @@ public class ServiceWorkRead_Controller {
 
 		return new ResponseEntity<>(serviceWorkMaster_DTOs, HttpStatus.OK);
 	}
-
+	
 	@GetMapping(value = "/getSelectWorksByParties", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksByParties(
 			@RequestBody CopyOnWriteArrayList<Long> pList) {
@@ -163,6 +163,7 @@ public class ServiceWorkRead_Controller {
 
 	}
 
+	
 	@GetMapping(value = "/getSelectWorksBetweenTimes/{fr}/{to}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksBetweenTimes(
 			@PathVariable String fr, @PathVariable String to) {
@@ -181,5 +182,71 @@ public class ServiceWorkRead_Controller {
 
 		return new ResponseEntity<>(serviceWorkMaster_DTOs, HttpStatus.OK);
 	}
+
+	
+	@GetMapping(value = "/getSelectWorksBillPending", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksBillPending()
+	{
+
+		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = serviceWorkReadServ
+				.getSelectWorksBillPending();
+		CopyOnWriteArrayList<ServiceWorkMaster_DTO> serviceWorkMaster_DTOs = null;
+		try {
+			serviceWorkMaster_DTOs = future.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(serviceWorkMaster_DTOs, HttpStatus.OK);
+	}
+
+
+	@GetMapping(value = "/getSelectWorksForAutoAllocJobsNotAllocated", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksForAutoAllocJobsNotAllocated()
+	{
+
+		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = serviceWorkReadServ
+				.getSelectWorksForAutoAllocJobsNotAllocated();
+		CopyOnWriteArrayList<ServiceWorkMaster_DTO> serviceWorkMaster_DTOs = null;
+		try {
+			serviceWorkMaster_DTOs = future.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(serviceWorkMaster_DTOs, HttpStatus.OK);
+	}
+
+
+	@GetMapping(value = "/getSelectWorksForAutoAllocResourcesNotAllocated", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksForAutoAllocResourcesNotAllocated()
+	{
+
+		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = serviceWorkReadServ
+				.getSelectWorksForAutoAllocResourcesNotAllocated();
+		CopyOnWriteArrayList<ServiceWorkMaster_DTO> serviceWorkMaster_DTOs = null;
+		try {
+			serviceWorkMaster_DTOs = future.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(serviceWorkMaster_DTOs, HttpStatus.OK);
+	}
+
+
+
 
 }

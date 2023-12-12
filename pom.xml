@@ -11,10 +11,10 @@
 	</parent>
 
 	<groupId>myABC</groupId>
-	<artifactId>supporting.supporting-service-or-order-to-pay</artifactId>
+	<artifactId>supporting.prodserv-order-to-pay</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>supporting.supporting-service-or-order-to-pay</name>
+	<name>supporting.prodserv-order-to-pay</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -22,7 +22,7 @@
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<spring-cloud.version>2020.0.6</spring-cloud.version>		
+		<spring-cloud.version>2020.0.6</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -34,9 +34,9 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>			
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.projectreactor</groupId>
 			<artifactId>reactor-spring</artifactId>
@@ -78,6 +78,16 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -101,6 +111,6 @@
 			</plugin>
 		</plugins>
 
-		<finalName>supporting.supporting-service-or-order-to-pay</finalName>
+		<finalName>supporting.prodserv-order-to-pay</finalName>
 	</build>
 </project>

@@ -30,7 +30,8 @@ public class ServiceWorkRead_Service implements IServiceWorkRead_Service
 	private Executor asyncExecutor;
 
 	@Override
-	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getAllServiceWorks() {
+	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getAllServiceWorks() 
+	{
 		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = CompletableFuture.supplyAsync(() -> {
 			CopyOnWriteArrayList<ServiceWorkMaster> servReqList = null;
 			servReqList = (CopyOnWriteArrayList<ServiceWorkMaster>) serviceWorkReadRepo.findAll();
@@ -46,7 +47,7 @@ public class ServiceWorkRead_Service implements IServiceWorkRead_Service
 	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorks(CopyOnWriteArrayList<Long> serviceReqSeqNos) 
 	{
 		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = CompletableFuture.supplyAsync(() -> {
-			CopyOnWriteArrayList<ServiceWorkMaster> lMasters = serviceWorkReadRepo.getSelectWorks(serviceReqSeqNos);
+			CopyOnWriteArrayList<ServiceWorkMaster> lMasters = (CopyOnWriteArrayList<ServiceWorkMaster>) serviceWorkReadRepo.findAllById(serviceReqSeqNos);
 			CopyOnWriteArrayList<ServiceWorkMaster_DTO> servMasterDTOs = lMasters != null ? this.getServWorkDtos(lMasters)
 					: null;
 			return servMasterDTOs;
@@ -137,6 +138,43 @@ public class ServiceWorkRead_Service implements IServiceWorkRead_Service
 		return future;
 	}
 
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksBillPending()
+			{
+		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = CompletableFuture.supplyAsync(() -> {
+			CopyOnWriteArrayList<ServiceWorkMaster> lMasters = serviceWorkReadRepo.getSelectWorksBillPending();
+			CopyOnWriteArrayList<ServiceWorkMaster_DTO> servMasterDTOs = lMasters != null ? this.getServWorkDtos(lMasters)	: null;
+			return servMasterDTOs;
+		}, asyncExecutor);
+
+		return future;
+	}
+	
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksForAutoAllocJobsNotAllocated()
+			{
+		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = CompletableFuture.supplyAsync(() -> {
+			CopyOnWriteArrayList<ServiceWorkMaster> lMasters = serviceWorkReadRepo.getSelectWorksForAutoAllocJobsNotAllocated();
+			CopyOnWriteArrayList<ServiceWorkMaster_DTO> servMasterDTOs = lMasters != null ? this.getServWorkDtos(lMasters)	: null;
+			return servMasterDTOs;
+		}, asyncExecutor);
+
+		return future;
+	}
+	
+	@Override
+	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksForAutoAllocResourcesNotAllocated()
+			{
+		CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> future = CompletableFuture.supplyAsync(() -> {
+			CopyOnWriteArrayList<ServiceWorkMaster> lMasters = serviceWorkReadRepo.getSelectWorksForAutoAllocResourcesNotAllocated();
+			CopyOnWriteArrayList<ServiceWorkMaster_DTO> servMasterDTOs = lMasters != null ? this.getServWorkDtos(lMasters)	: null;
+			return servMasterDTOs;
+		}, asyncExecutor);
+
+		return future;
+	}
+
+	
 	private synchronized CopyOnWriteArrayList<ServiceWorkMaster_DTO> getServWorkDtos(
 			CopyOnWriteArrayList<ServiceWorkMaster> servReqMasters) {
 		CopyOnWriteArrayList<ServiceWorkMaster_DTO> serviceWorkDTOs = new CopyOnWriteArrayList<ServiceWorkMaster_DTO>();
@@ -163,8 +201,13 @@ public class ServiceWorkRead_Service implements IServiceWorkRead_Service
 		serviceWorkDTO.setResDirectIndirectFlag(servwMaster.getResDirectIndirectFlag());
 		serviceWorkDTO.setServiceSeqNo(servwMaster.getServiceSeqNo());
 		serviceWorkDTO.setServiceWorkSeqNo(servwMaster.getServiceWorkSeqNo());
-		serviceWorkDTO.setToBill(servwMaster.getToBill());
-		serviceWorkDTO.setStatus(servwMaster.getStatus());
+		serviceWorkDTO.setBilledflag(servwMaster.getBilledflag());
+		serviceWorkDTO.setOkflag(servwMaster.getOkflag());
+		serviceWorkDTO.setDoneflag(servwMaster.getDoneflag());
+		serviceWorkDTO.setJobAllocStatus(servwMaster.getJobAllocStatus());
+		serviceWorkDTO.setResAllocStatus(servwMaster.getResAllocStatus());
+		serviceWorkDTO.setJobautoflag(servwMaster.getJobautoflag());
+		serviceWorkDTO.setResautoflag(servwMaster.getResautoflag());
 		serviceWorkDTO.setRemark(servwMaster.getRemark());		
 		return serviceWorkDTO;
 	}

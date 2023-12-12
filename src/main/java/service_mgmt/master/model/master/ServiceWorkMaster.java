@@ -10,7 +10,8 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "SERVICE_WORK_MASTER")
-public class ServiceWorkMaster implements Serializable {
+public class ServiceWorkMaster implements Serializable 
+{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,11 +20,11 @@ public class ServiceWorkMaster implements Serializable {
 	@Column(name = "SERVICE_WORK_SEQ_NO")
 	private Long serviceWorkSeqNo;
 
-	@Column(name = "PARTY_WORK_SEQ_NO")
-	private Long partySeqNo;
-
 	@Column(name = "AUTO_ALLOC_STATUS")
 	private Character autoAllocStatus;
+
+	@Column(name = "BIILEDFLAG")
+	private Character billedflag;
 
 	@Column(name = "BILLING_CURRENCY_SEQ_NO")
 	private Long billingCurrencySeqNo;
@@ -34,17 +35,35 @@ public class ServiceWorkMaster implements Serializable {
 	@Column(name = "CREATED_BY")
 	private Long createdBy;
 
+	@Column(name = "DONEFLAG")
+	private Character doneflag;
+
 	@Column(name = "JOB_ALLOC_STATUS")
 	private Character jobAllocStatus;
+
+	@Column(name = "JOB_TEMPLATE_SEQ_NO")
+	private Long jobTemplateSeqNo;
+
+	@Column(name = "JOBAUTOFLAG")
+	private Character jobautoflag;
 
 	@Column(name = "MEMBERSHIP_SEQ_NO")
 	private Long membershipSeqNo;
 
+	@Column(name = "OKFLAG")
+	private Character okflag;
+
 	@Column(name = "ON_DATE")
 	private Timestamp onDate;
 
+	@Column(name = "OP_FLAG")
+	private Integer opFlag;
+
 	@Column(name = "PARENT_SERVICE_WORK_SEQ_NO")
 	private Long parentServiceWorkSeqNo;
+
+	@Column(name = "PARTY_SEQ_NO")
+	private Long partySeqNo;
 
 	@Column(name = "REMARK")
 	private String remark;
@@ -58,14 +77,11 @@ public class ServiceWorkMaster implements Serializable {
 	@Column(name = "RES_DIRECT_INDIRECT_FLAG")
 	private Character resDirectIndirectFlag;
 
+	@Column(name = "RESAUTOFLAG")
+	private Character resautoflag;
+
 	@Column(name = "SERVICE_SEQ_NO")
 	private Long serviceSeqNo;
-
-	@Column(name = "STATUS")
-	private String status;
-
-	@Column(name = "TO_BILL")
-	private String toBill;
 
 	public ServiceWorkMaster() {
 	}
@@ -84,6 +100,14 @@ public class ServiceWorkMaster implements Serializable {
 
 	public void setAutoAllocStatus(Character autoAllocStatus) {
 		this.autoAllocStatus = autoAllocStatus;
+	}
+
+	public Character getBilledflag() {
+		return billedflag;
+	}
+
+	public void setBilledflag(Character billedflag) {
+		this.billedflag = billedflag;
 	}
 
 	public Long getBillingCurrencySeqNo() {
@@ -110,12 +134,36 @@ public class ServiceWorkMaster implements Serializable {
 		this.createdBy = createdBy;
 	}
 
+	public Character getDoneflag() {
+		return doneflag;
+	}
+
+	public void setDoneflag(Character doneflag) {
+		this.doneflag = doneflag;
+	}
+
 	public Character getJobAllocStatus() {
 		return jobAllocStatus;
 	}
 
 	public void setJobAllocStatus(Character jobAllocStatus) {
 		this.jobAllocStatus = jobAllocStatus;
+	}
+
+	public Long getJobTemplateSeqNo() {
+		return jobTemplateSeqNo;
+	}
+
+	public void setJobTemplateSeqNo(Long jobTemplateSeqNo) {
+		this.jobTemplateSeqNo = jobTemplateSeqNo;
+	}
+
+	public Character getJobautoflag() {
+		return jobautoflag;
+	}
+
+	public void setJobautoflag(Character jobautoflag) {
+		this.jobautoflag = jobautoflag;
 	}
 
 	public Long getMembershipSeqNo() {
@@ -126,6 +174,14 @@ public class ServiceWorkMaster implements Serializable {
 		this.membershipSeqNo = membershipSeqNo;
 	}
 
+	public Character getOkflag() {
+		return okflag;
+	}
+
+	public void setOkflag(Character okflag) {
+		this.okflag = okflag;
+	}
+
 	public Timestamp getOnDate() {
 		return onDate;
 	}
@@ -134,12 +190,28 @@ public class ServiceWorkMaster implements Serializable {
 		this.onDate = onDate;
 	}
 
+	public Integer getOpFlag() {
+		return opFlag;
+	}
+
+	public void setOpFlag(Integer opFlag) {
+		this.opFlag = opFlag;
+	}
+
 	public Long getParentServiceWorkSeqNo() {
 		return parentServiceWorkSeqNo;
 	}
 
 	public void setParentServiceWorkSeqNo(Long parentServiceWorkSeqNo) {
 		this.parentServiceWorkSeqNo = parentServiceWorkSeqNo;
+	}
+
+	public Long getPartySeqNo() {
+		return partySeqNo;
+	}
+
+	public void setPartySeqNo(Long partySeqNo) {
+		this.partySeqNo = partySeqNo;
 	}
 
 	public String getRemark() {
@@ -174,6 +246,14 @@ public class ServiceWorkMaster implements Serializable {
 		this.resDirectIndirectFlag = resDirectIndirectFlag;
 	}
 
+	public Character getResautoflag() {
+		return resautoflag;
+	}
+
+	public void setResautoflag(Character resautoflag) {
+		this.resautoflag = resautoflag;
+	}
+
 	public Long getServiceSeqNo() {
 		return serviceSeqNo;
 	}
@@ -182,34 +262,11 @@ public class ServiceWorkMaster implements Serializable {
 		this.serviceSeqNo = serviceSeqNo;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public Long getPartySeqNo() {
-		return partySeqNo;
-	}
-
-	public void setPartySeqNo(Long partySeqNo) {
-		this.partySeqNo = partySeqNo;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getToBill() {
-		return toBill;
-	}
-
-	public void setToBill(String toBill) {
-		this.toBill = toBill;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((partySeqNo == null) ? 0 : partySeqNo.hashCode());
 		result = prime * result + ((serviceWorkSeqNo == null) ? 0 : serviceWorkSeqNo.hashCode());
 		return result;
 	}
@@ -223,6 +280,11 @@ public class ServiceWorkMaster implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ServiceWorkMaster other = (ServiceWorkMaster) obj;
+		if (partySeqNo == null) {
+			if (other.partySeqNo != null)
+				return false;
+		} else if (!partySeqNo.equals(other.partySeqNo))
+			return false;
 		if (serviceWorkSeqNo == null) {
 			if (other.serviceWorkSeqNo != null)
 				return false;
@@ -231,29 +293,34 @@ public class ServiceWorkMaster implements Serializable {
 		return true;
 	}
 
-	public ServiceWorkMaster(Long serviceWorkSeqNo, Long partySeqNo, Character autoAllocStatus,
-			Long billingCurrencySeqNo, Long bookingSeqNo, Long createdBy, Character jobAllocStatus,
-			Long membershipSeqNo, Timestamp onDate, Long parentServiceWorkSeqNo, String remark,
-			Long requestSeqNo, Character resAllocStatus, Character resDirectIndirectFlag, Long serviceSeqNo,
-			String status, String toBill) {
+	public ServiceWorkMaster(Long serviceWorkSeqNo, Character autoAllocStatus, Character billedflag,
+			Long billingCurrencySeqNo, Long bookingSeqNo, Long createdBy, Character doneflag, Character jobAllocStatus,
+			Long jobTemplateSeqNo, Character jobautoflag, Long membershipSeqNo, Character okflag, Timestamp onDate,
+			Integer opFlag, Long parentServiceWorkSeqNo, Long partySeqNo, String remark, Long requestSeqNo,
+			Character resAllocStatus, Character resDirectIndirectFlag, Character resautoflag, Long serviceSeqNo) {
 		super();
 		this.serviceWorkSeqNo = serviceWorkSeqNo;
-		this.partySeqNo = partySeqNo;
 		this.autoAllocStatus = autoAllocStatus;
+		this.billedflag = billedflag;
 		this.billingCurrencySeqNo = billingCurrencySeqNo;
 		this.bookingSeqNo = bookingSeqNo;
 		this.createdBy = createdBy;
+		this.doneflag = doneflag;
 		this.jobAllocStatus = jobAllocStatus;
+		this.jobTemplateSeqNo = jobTemplateSeqNo;
+		this.jobautoflag = jobautoflag;
 		this.membershipSeqNo = membershipSeqNo;
+		this.okflag = okflag;
 		this.onDate = onDate;
+		this.opFlag = opFlag;
 		this.parentServiceWorkSeqNo = parentServiceWorkSeqNo;
+		this.partySeqNo = partySeqNo;
 		this.remark = remark;
 		this.requestSeqNo = requestSeqNo;
 		this.resAllocStatus = resAllocStatus;
 		this.resDirectIndirectFlag = resDirectIndirectFlag;
+		this.resautoflag = resautoflag;
 		this.serviceSeqNo = serviceSeqNo;
-		this.status = status;
-		this.toBill = toBill;
 	}
 
 }

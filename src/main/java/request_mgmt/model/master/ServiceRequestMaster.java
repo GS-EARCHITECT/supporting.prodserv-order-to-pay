@@ -1,11 +1,11 @@
 package request_mgmt.model.master;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
- * The persistent class for the SERVICE_REQUEST database table.
+ * The persistent class for the SERVICE_REQUEST_MASTER database table.
  * 
  */
 @Entity
@@ -19,88 +19,156 @@ public class ServiceRequestMaster implements Serializable {
 	@Column(name = "REQUEST_SEQ_NO")
 	private Long requestSeqNo;
 
-	@Column(name = "COMPANY_SEQ_NO")
-	private Long companySeqNo;
+	@Column(name = "FR_PARTY_LAT")
+	private Float frPartyLat;
 
-	@Column(name = "PERSON_SEQ_NO")
-	private Long personSeqNo;
+	@Column(name = "FR_PARTY_LOCATION_SEQ_NO")
+	private Long frPartyLocationSeqNo;
 
-	@Column(name = "REQUEST_DATE")
-	private Timestamp requestDate;
-	
+	@Column(name = "FR_PARTY_LON")
+	private Float frPartyLon;
+
+	@Column(name = "FR_PARTY_SEQ_NO")
+	private Long frPartySeqNo;
+
+	@Column(name = "REFERENCE_SEQ_NO")
+	private Long referenceSeqNo;
+
+	@Column(name = "REQUEST_DTTM")
+	private Timestamp requestDttm;
+
+	@Column(name = "TO_PARTY_LOCATION_SEQ_NO")
+	private Long toPartyLocationSeqNo;
+
+	@Column(name = "TO_PARTY_SEQ_NO")
+	private Long toPartySeqNo;
+
 	@Column(name = "REMARK")
 	private String remark;
 
 	@Column(name = "STATUS")
 	private String status;
 
-	@Column(name = "SUPPLIER_SEQ_NO")
-	private Long supplierSeqNo;
+	@Column(name = "DONEFLAG")
+	private Character doneFlag;
+
+	@Column(name = "OKFLAG")
+	private Character okFlag;
 
 	public ServiceRequestMaster() {
 	}
 
 	public Long getRequestSeqNo() {
-		return this.requestSeqNo;
+		return requestSeqNo;
 	}
 
 	public void setRequestSeqNo(Long requestSeqNo) {
 		this.requestSeqNo = requestSeqNo;
 	}
 
-	public Long getCompanySeqNo() {
-		return this.companySeqNo;
+	public Float getFrPartyLat() {
+		return frPartyLat;
 	}
 
-	public void setCompanySeqNo(Long companySeqNo) {
-		this.companySeqNo = companySeqNo;
+	public void setFrPartyLat(Float frPartyLat) {
+		this.frPartyLat = frPartyLat;
 	}
 
-	public Long getPersonSeqNo() {
-		return this.personSeqNo;
+	public Long getFrPartyLocationSeqNo() {
+		return frPartyLocationSeqNo;
 	}
 
-	public void setPersonSeqNo(Long personSeqNo) {
-		this.personSeqNo = personSeqNo;
+	public void setFrPartyLocationSeqNo(Long frPartyLocationSeqNo) {
+		this.frPartyLocationSeqNo = frPartyLocationSeqNo;
+	}
+
+	public Float getFrPartyLon() {
+		return frPartyLon;
+	}
+
+	public void setFrPartyLon(Float frPartyLon) {
+		this.frPartyLon = frPartyLon;
+	}
+
+	public Long getFrPartySeqNo() {
+		return frPartySeqNo;
+	}
+
+	public void setFrPartySeqNo(Long frPartySeqNo) {
+		this.frPartySeqNo = frPartySeqNo;
+	}
+
+	public Long getReferenceSeqNo() {
+		return referenceSeqNo;
+	}
+
+	public void setReferenceSeqNo(Long referenceSeqNo) {
+		this.referenceSeqNo = referenceSeqNo;
+	}
+
+	public Timestamp getRequestDttm() {
+		return requestDttm;
+	}
+
+	public void setRequestDttm(Timestamp requestDttm) {
+		this.requestDttm = requestDttm;
+	}
+
+	public Long getToPartyLocationSeqNo() {
+		return toPartyLocationSeqNo;
+	}
+
+	public void setToPartyLocationSeqNo(Long toPartyLocationSeqNo) {
+		this.toPartyLocationSeqNo = toPartyLocationSeqNo;
+	}
+
+	public Long getToPartySeqNo() {
+		return toPartySeqNo;
+	}
+
+	public void setToPartySeqNo(Long toPartySeqNo) {
+		this.toPartySeqNo = toPartySeqNo;
 	}
 
 	public String getRemark() {
-		return this.remark;
+		return remark;
 	}
 
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
 
-	public Timestamp getRequestDate() {
-		return this.requestDate;
-	}
-
-	public void setRequestDate(Timestamp requestDate) {
-		this.requestDate = requestDate;
-	}
-
 	public String getStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public Long getSupplierSeqNo() {
-		return this.supplierSeqNo;
+	public Character getDoneFlag() {
+		return doneFlag;
 	}
 
-	public void setSupplierSeqNo(Long supplierSeqNo) {
-		this.supplierSeqNo = supplierSeqNo;
+	public void setDoneFlag(Character doneFlag) {
+		this.doneFlag = doneFlag;
+	}
+
+	public Character getOkFlag() {
+		return okFlag;
+	}
+
+	public void setOkFlag(Character okFlag) {
+		this.okFlag = okFlag;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((frPartySeqNo == null) ? 0 : frPartySeqNo.hashCode());
 		result = prime * result + ((requestSeqNo == null) ? 0 : requestSeqNo.hashCode());
+		result = prime * result + ((toPartySeqNo == null) ? 0 : toPartySeqNo.hashCode());
 		return result;
 	}
 
@@ -113,24 +181,41 @@ public class ServiceRequestMaster implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ServiceRequestMaster other = (ServiceRequestMaster) obj;
+		if (frPartySeqNo == null) {
+			if (other.frPartySeqNo != null)
+				return false;
+		} else if (!frPartySeqNo.equals(other.frPartySeqNo))
+			return false;
 		if (requestSeqNo == null) {
 			if (other.requestSeqNo != null)
 				return false;
 		} else if (!requestSeqNo.equals(other.requestSeqNo))
 			return false;
+		if (toPartySeqNo == null) {
+			if (other.toPartySeqNo != null)
+				return false;
+		} else if (!toPartySeqNo.equals(other.toPartySeqNo))
+			return false;
 		return true;
 	}
 
-	public ServiceRequestMaster(Long requestSeqNo, Long companySeqNo, Long personSeqNo, String remark, Timestamp requestDate,
-			String status, Long supplierSeqNo) {
+	public ServiceRequestMaster(Long requestSeqNo, Float frPartyLat, Long frPartyLocationSeqNo, Float frPartyLon,
+			Long frPartySeqNo, Long referenceSeqNo, Timestamp requestDttm, Long toPartyLocationSeqNo, Long toPartySeqNo,
+			String remark, String status, Character doneFlag, Character okFlag) {
 		super();
 		this.requestSeqNo = requestSeqNo;
-		this.companySeqNo = companySeqNo;
-		this.personSeqNo = personSeqNo;
+		this.frPartyLat = frPartyLat;
+		this.frPartyLocationSeqNo = frPartyLocationSeqNo;
+		this.frPartyLon = frPartyLon;
+		this.frPartySeqNo = frPartySeqNo;
+		this.referenceSeqNo = referenceSeqNo;
+		this.requestDttm = requestDttm;
+		this.toPartyLocationSeqNo = toPartyLocationSeqNo;
+		this.toPartySeqNo = toPartySeqNo;
 		this.remark = remark;
-		this.requestDate = requestDate;
 		this.status = status;
-		this.supplierSeqNo = supplierSeqNo;
+		this.doneFlag = doneFlag;
+		this.okFlag = okFlag;
 	}
 
 }

@@ -10,9 +10,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @SpringBootApplication
+@EnableKafka
 @EnableEurekaClient
 @EntityScan(basePackages ={"request_mgmt","catalog_mgmt","config"})
 @EnableJpaRepositories(basePackages ={"request_mgmt","catalog_mgmt","config"})

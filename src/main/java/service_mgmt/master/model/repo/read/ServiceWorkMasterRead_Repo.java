@@ -11,9 +11,12 @@ import service_mgmt.master.model.master.ServiceWorkMaster;
 @Repository("serviceWorkReadRepo")
 public interface ServiceWorkMasterRead_Repo extends JpaRepository<ServiceWorkMaster, Long> 
 {
-@Query(value = "select * FROM SERVICE_WORK_MASTER WHERE service_work_seq_no in :rList order by service_work_seq_no",nativeQuery = true)
-CopyOnWriteArrayList<ServiceWorkMaster> getSelectWorks(@Param("sList") CopyOnWriteArrayList<Long> sList);
-	
+@Query(value = "select * FROM SERVICE_WORK_MASTER WHERE (upper(trim(OKFLAG)) ='Y' and upper(trim(DONEFLAG)) <>'Y' and upper(trim(JOBAUTOFLAG)) = 'Y' and upper(trim(JOB_ALLOC_STATUS)) <>'Y') order by service_work_seq_no",nativeQuery = true)
+CopyOnWriteArrayList<ServiceWorkMaster> getSelectWorksForAutoAllocJobsNotAllocated();
+
+@Query(value = "select * FROM SERVICE_WORK_MASTER WHERE (upper(trim(OKFLAG)) ='Y' and upper(trim(DONEFLAG)) <>'Y' and upper(trim(RESAUTOFLAG)) = 'Y' and upper(trim(RES_ALLOC_STATUS)) <>'Y') order by service_work_seq_no",nativeQuery = true)
+CopyOnWriteArrayList<ServiceWorkMaster> getSelectWorksForAutoAllocResourcesNotAllocated();
+
 @Query(value = "select * FROM SERVICE_WORK_MASTER WHERE party_seq_no in :cList order by service_work_seq_no",nativeQuery = true)
 CopyOnWriteArrayList<ServiceWorkMaster> getSelectWorksByParties(@Param("pList") CopyOnWriteArrayList<Long> pList);
 
@@ -31,4 +34,8 @@ CopyOnWriteArrayList<ServiceWorkMaster> getSelectWorksByCreatedBy(@Param("cList"
 
 @Query(value = "SELECT * FROM SERVICE_WORK_MASTER where (ON_DATE >= :frDtTm and ON_DATE <= :toDtTm) ORDER BY service_work_sEQ_NO",nativeQuery = true)
 CopyOnWriteArrayList<ServiceWorkMaster> getSelectWorksBetweenTimes(@Param("frDtTm") Timestamp frDtTm, @Param("toDtTm") Timestamp toDtTm);
+
+@Query(value = "SELECT * FROM SERVICE_WORK_MASTER where upper(trim(billedflag)) <> 'Y' ORDER BY service_work_sEQ_NO",nativeQuery = true)
+CopyOnWriteArrayList<ServiceWorkMaster> getSelectWorksBillPending();
+
 }

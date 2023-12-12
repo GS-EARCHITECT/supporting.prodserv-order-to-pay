@@ -53,9 +53,49 @@ public class ServiceWorkCUD_Controller {
 		serviceWorkCUDServ.updServiceWork(swtDTO);
 	}
 
+	@PutMapping("/updResourceAllocStatus/{{id}/{st}")
+	public void updResourceAllocStatus(@PathVariable Long id, @PathVariable Character st) {
+		serviceWorkCUDServ.updResourceAllocStatus(id, st);
+	}
+
+	@PutMapping("/updResourceAutoFlag/{{id}/{fl}")
+	public void updResourceAutoFlag(@PathVariable Long id, @PathVariable Character fl) {
+		serviceWorkCUDServ.updResourceAutoFlag(id, fl);
+	}
+
+	@PutMapping("/updJobAllocStatus/{{id}/{st}")
+	public void updJobAllocStatus(@PathVariable Long id, @PathVariable Character st) {
+		serviceWorkCUDServ.updJobAllocStatus(id, st);
+	}
+
+	@PutMapping("/updJobAutoFlag/{{id}/{fl}")
+	public void updJobAutoFlag(@PathVariable Long id, @PathVariable Character fl) {
+		serviceWorkCUDServ.updJobAutoFlag(id, fl);
+	}
+
+	@PutMapping("/updOkFlag/{{id}/{fl}")
+	public void updOkFlag(@PathVariable Long id, @PathVariable Character fl) {
+		serviceWorkCUDServ.updOkFlag(id, fl);
+	}
+
+	@PutMapping("/updDoneFlag/{{id}/{fl}")
+	public void updDoneFlag(@PathVariable Long id, @PathVariable Character fl) {
+		serviceWorkCUDServ.updDoneFlag(id, fl);
+	}
+
+	@PutMapping("/updServiceBillingStatus")
+	public void updServiceBillingStatus(@PathVariable Long id, @PathVariable Character st) {
+		serviceWorkCUDServ.updSelectWorkBillStatus(id, st);
+	}
+
 	@DeleteMapping("/delSelectServiceWorks")
 	public void delSelectServiceWorks(@RequestBody CopyOnWriteArrayList<Long> cList) {
 		serviceWorkCUDServ.delSelectWorks(cList);
+	}
+
+	@DeleteMapping("/delSelectWorksBillPending")
+	public void delSelectWorksBillPending() {
+		serviceWorkCUDServ.delSelectWorksBillPending();
 	}
 
 	@DeleteMapping("/delSelectWorksByParties")
@@ -86,6 +126,21 @@ public class ServiceWorkCUD_Controller {
 	@DeleteMapping("/delSelectServiceWorksBetweenTimes/{fr}/{to}")
 	public void delSelectServiceWorksBetweenTimes(@PathVariable String fr, @PathVariable String to) {
 		serviceWorkCUDServ.delSelectWorksBetweenTimes(fr, to);
+	}
+
+	@DeleteMapping("/delSelectWorksForAutoAllocJobsNotAllocated")
+	public void delSelectWorksForAutoAllocJobsNotAllocated() {
+		serviceWorkCUDServ.delSelectWorksForAutoAllocJobsNotAllocated();
+	}
+
+	@DeleteMapping("/delSelectWorksForAutoAllocResourcesNotAllocated")
+	public void delSelectWorksForAutoAllocResourcesNotAllocated() {
+		serviceWorkCUDServ.delSelectWorksForAutoAllocResourcesNotAllocated();
+	}
+
+	@DeleteMapping("/delWorksDone")
+	public void delWorksDone() {
+		serviceWorkCUDServ.delWorksDone();
 	}
 
 	@DeleteMapping("/delAllServiceWorks")

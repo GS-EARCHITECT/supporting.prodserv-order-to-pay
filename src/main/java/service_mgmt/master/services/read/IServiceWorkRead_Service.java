@@ -14,4 +14,7 @@ public interface IServiceWorkRead_Service
 	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksByServices(CopyOnWriteArrayList<Long> sList);
 	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksByCreatedBy(CopyOnWriteArrayList<Long> cList);
 	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksBetweenTimes(String frDtTm, String toDtTm);
+	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksBillPending();
+	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksForAutoAllocJobsNotAllocated();
+	public CompletableFuture<CopyOnWriteArrayList<ServiceWorkMaster_DTO>> getSelectWorksForAutoAllocResourcesNotAllocated();	
 }

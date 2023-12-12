@@ -2,29 +2,34 @@ package service_mgmt.master.model.dto;
 
 import java.io.Serializable;
 
-public class ServiceWorkMaster_DTO implements Serializable {
-
+public class ServiceWorkMaster_DTO implements Serializable 
+{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5825991339136084922L;
+	private static final long serialVersionUID = -725497823375126222L;
 	private Long serviceWorkSeqNo;
-	private Long partySeqNo;
 	private Character autoAllocStatus;
+	private Character billedflag;
 	private Long billingCurrencySeqNo;
 	private Long bookingSeqNo;
 	private Long createdBy;
+	private Character doneflag;
 	private Character jobAllocStatus;
+	private Long jobTemplateSeqNo;
+	private Character jobautoflag;
 	private Long membershipSeqNo;
+	private Character okflag;
 	private String onDate;
+	private Integer opFlag;
 	private Long parentServiceWorkSeqNo;
+	private Long partySeqNo;
 	private String remark;
 	private Long requestSeqNo;
 	private Character resAllocStatus;
 	private Character resDirectIndirectFlag;
+	private Character resautoflag;
 	private Long serviceSeqNo;
-	private String status;
-	private String toBill;
 
 	public Long getServiceWorkSeqNo() {
 		return serviceWorkSeqNo;
@@ -38,16 +43,16 @@ public class ServiceWorkMaster_DTO implements Serializable {
 		return autoAllocStatus;
 	}
 
-	public Long getPartySeqNo() {
-		return partySeqNo;
-	}
-
-	public void setPartySeqNo(Long partySeqNo) {
-		this.partySeqNo = partySeqNo;
-	}
-
 	public void setAutoAllocStatus(Character autoAllocStatus) {
 		this.autoAllocStatus = autoAllocStatus;
+	}
+
+	public Character getBilledflag() {
+		return billedflag;
+	}
+
+	public void setBilledflag(Character billedflag) {
+		this.billedflag = billedflag;
 	}
 
 	public Long getBillingCurrencySeqNo() {
@@ -74,12 +79,36 @@ public class ServiceWorkMaster_DTO implements Serializable {
 		this.createdBy = createdBy;
 	}
 
+	public Character getDoneflag() {
+		return doneflag;
+	}
+
+	public void setDoneflag(Character doneflag) {
+		this.doneflag = doneflag;
+	}
+
 	public Character getJobAllocStatus() {
 		return jobAllocStatus;
 	}
 
 	public void setJobAllocStatus(Character jobAllocStatus) {
 		this.jobAllocStatus = jobAllocStatus;
+	}
+
+	public Long getJobTemplateSeqNo() {
+		return jobTemplateSeqNo;
+	}
+
+	public void setJobTemplateSeqNo(Long jobTemplateSeqNo) {
+		this.jobTemplateSeqNo = jobTemplateSeqNo;
+	}
+
+	public Character getJobautoflag() {
+		return jobautoflag;
+	}
+
+	public void setJobautoflag(Character jobautoflag) {
+		this.jobautoflag = jobautoflag;
 	}
 
 	public Long getMembershipSeqNo() {
@@ -90,6 +119,14 @@ public class ServiceWorkMaster_DTO implements Serializable {
 		this.membershipSeqNo = membershipSeqNo;
 	}
 
+	public Character getOkflag() {
+		return okflag;
+	}
+
+	public void setOkflag(Character okflag) {
+		this.okflag = okflag;
+	}
+
 	public String getOnDate() {
 		return onDate;
 	}
@@ -98,12 +135,28 @@ public class ServiceWorkMaster_DTO implements Serializable {
 		this.onDate = onDate;
 	}
 
+	public Integer getOpFlag() {
+		return opFlag;
+	}
+
+	public void setOpFlag(Integer opFlag) {
+		this.opFlag = opFlag;
+	}
+
 	public Long getParentServiceWorkSeqNo() {
 		return parentServiceWorkSeqNo;
 	}
 
 	public void setParentServiceWorkSeqNo(Long parentServiceWorkSeqNo) {
 		this.parentServiceWorkSeqNo = parentServiceWorkSeqNo;
+	}
+
+	public Long getPartySeqNo() {
+		return partySeqNo;
+	}
+
+	public void setPartySeqNo(Long partySeqNo) {
+		this.partySeqNo = partySeqNo;
 	}
 
 	public String getRemark() {
@@ -138,6 +191,14 @@ public class ServiceWorkMaster_DTO implements Serializable {
 		this.resDirectIndirectFlag = resDirectIndirectFlag;
 	}
 
+	public Character getResautoflag() {
+		return resautoflag;
+	}
+
+	public void setResautoflag(Character resautoflag) {
+		this.resautoflag = resautoflag;
+	}
+
 	public Long getServiceSeqNo() {
 		return serviceSeqNo;
 	}
@@ -146,45 +207,34 @@ public class ServiceWorkMaster_DTO implements Serializable {
 		this.serviceSeqNo = serviceSeqNo;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getToBill() {
-		return toBill;
-	}
-
-	public void setToBill(String toBill) {
-		this.toBill = toBill;
-	}
-
-	public ServiceWorkMaster_DTO(Long serviceWorkSeqNo, Long partySeqNo, Character autoAllocStatus,
-			Long billingCurrencySeqNo, Long bookingSeqNo, Long createdBy, Character jobAllocStatus,
-			Long membershipSeqNo, String onDate, Long parentServiceWorkSeqNo, String remark,
-			Long requestSeqNo, Character resAllocStatus, Character resDirectIndirectFlag, Long serviceSeqNo,
-			String status, String toBill) {
+	public ServiceWorkMaster_DTO(Long serviceWorkSeqNo, Character autoAllocStatus, Character billedflag,
+			Long billingCurrencySeqNo, Long bookingSeqNo, Long createdBy, Character doneflag, Character jobAllocStatus,
+			Long jobTemplateSeqNo, Character jobautoflag, Long membershipSeqNo, Character okflag, String onDate,
+			Integer opFlag, Long parentServiceWorkSeqNo, Long partySeqNo, String remark, Long requestSeqNo,
+			Character resAllocStatus, Character resDirectIndirectFlag, Character resautoflag, Long serviceSeqNo) {
 		super();
 		this.serviceWorkSeqNo = serviceWorkSeqNo;
-		this.partySeqNo = partySeqNo;
 		this.autoAllocStatus = autoAllocStatus;
+		this.billedflag = billedflag;
 		this.billingCurrencySeqNo = billingCurrencySeqNo;
 		this.bookingSeqNo = bookingSeqNo;
 		this.createdBy = createdBy;
+		this.doneflag = doneflag;
 		this.jobAllocStatus = jobAllocStatus;
+		this.jobTemplateSeqNo = jobTemplateSeqNo;
+		this.jobautoflag = jobautoflag;
 		this.membershipSeqNo = membershipSeqNo;
+		this.okflag = okflag;
 		this.onDate = onDate;
+		this.opFlag = opFlag;
 		this.parentServiceWorkSeqNo = parentServiceWorkSeqNo;
+		this.partySeqNo = partySeqNo;
 		this.remark = remark;
 		this.requestSeqNo = requestSeqNo;
 		this.resAllocStatus = resAllocStatus;
 		this.resDirectIndirectFlag = resDirectIndirectFlag;
+		this.resautoflag = resautoflag;
 		this.serviceSeqNo = serviceSeqNo;
-		this.status = status;
-		this.toBill = toBill;
 	}
 
 	public ServiceWorkMaster_DTO() {

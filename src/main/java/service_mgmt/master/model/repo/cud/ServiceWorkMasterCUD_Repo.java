@@ -10,7 +10,28 @@ import service_mgmt.master.model.master.ServiceWorkMaster;
 
 @Repository("serviceWorkCUDRepo")
 public interface ServiceWorkMasterCUD_Repo extends JpaRepository<ServiceWorkMaster, Long> 
-{
+{	
+@Query(value = "update SERVICE_WORK_MASTER set RES_ALLOC_STATUS = upper(trim(:st)) WHERE service_work_seq_no = :id",nativeQuery = true)
+void updResourceAllocStatus(@Param("id") Long id, @Param("st") Character st);
+
+@Query(value = "update SERVICE_WORK_MASTER set RESAUTOFLAG = upper(trim(:fl)) WHERE service_work_seq_no = :id",nativeQuery = true)
+void updResourceAutoFlag(@Param("id") Long id, @Param("st") Character fl);
+
+@Query(value = "update SERVICE_WORK_MASTER set JOB_ALLOC_STATUS = upper(trim(:st)) WHERE service_work_seq_no = :id",nativeQuery = true)
+void updJobAllocStatus(@Param("id") Long id, @Param("st") Character st);
+
+@Query(value = "update SERVICE_WORK_MASTER set JOBAUTOFLAG = upper(trim(:fl)) WHERE service_work_seq_no = :id",nativeQuery = true)
+void updJobAutoFlag(@Param("id") Long id, @Param("st") Character fl);
+
+@Query(value = "update SERVICE_WORK_MASTER set billedflag = upper(trim(:st)) WHERE service_work_seq_no = :id",nativeQuery = true)
+void updSelectWorkBillStatus(@Param("id") Long id, @Param("st") Character st);
+
+@Query(value = "update SERVICE_WORK_MASTER set OKFLAG = upper(trim(:fl)) WHERE service_work_seq_no = :id",nativeQuery = true)
+void updOkFlag(@Param("id") Long id, @Param("st") Character fl);
+
+@Query(value = "update SERVICE_WORK_MASTER set DONEFLAG = upper(trim(:fl)) WHERE service_work_seq_no = :id",nativeQuery = true)
+void updDoneFlag(@Param("id") Long id, @Param("st") Character fl);
+
 @Query(value = "delete FROM SERVICE_WORK_MASTER WHERE service_work_seq_no in :rList",nativeQuery = true)
 void delSelectWorks(@Param("sList") CopyOnWriteArrayList<Long> sList);
 	
@@ -31,4 +52,16 @@ void delSelectWorksByCreatedBy(@Param("cList") CopyOnWriteArrayList<Long> cList)
 
 @Query(value = "SELECT * FROM SERVICE_WORK_MASTER where (ON_DATE >= :frDtTm and ON_DATE <= :toDtTm)",nativeQuery = true)
 void delSelectWorksBetweenTimes(@Param("frDtTm") Timestamp frDtTm, @Param("toDtTm") Timestamp toDtTm);
+
+@Query(value = "delete FROM SERVICE_WORK_MASTER where upper(trim(billedflag)) <> 'Y'",nativeQuery = true)
+void delSelectWorksBillPending();
+
+@Query(value = "delete FROM SERVICE_WORK_MASTER WHERE (upper(trim(OKFLAG)) ='Y' and upper(trim(DONEFLAG)) <>'Y' and upper(trim(JOBAUTOFLAG)) = 'Y' and upper(trim(JOB_ALLOC_STATUS)) <>'Y') order by service_work_seq_no",nativeQuery = true)
+void delSelectWorksForAutoAllocJobsNotAllocated();
+
+@Query(value = "delete FROM SERVICE_WORK_MASTER WHERE (upper(trim(OKFLAG)) ='Y' and upper(trim(DONEFLAG)) <>'Y' and upper(trim(RESAUTOFLAG)) = 'Y' and upper(trim(RES_ALLOC_STATUS)) <>'Y') order by service_work_seq_no",nativeQuery = true)
+void delSelectWorksForAutoAllocResourcesNotAllocated();
+
+@Query(value = "delete FROM SERVICE_WORK_MASTER WHERE upper(trim(okflag)) = 'Y'",nativeQuery = true)
+void delWorksDone();
 }
