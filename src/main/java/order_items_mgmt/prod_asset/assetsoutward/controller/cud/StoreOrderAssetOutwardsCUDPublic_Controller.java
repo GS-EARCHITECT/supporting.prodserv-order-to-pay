@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import order_items_mgmt.prod_asset.assetsoutward.model.dto.StoreOrderAssetOutward_DTO;
-import order_items_mgmt.prod_asset.assetsoutward.services.cud.I_StoreOrderAssetOutwardsCUDPublic_Service;
+import common.model.dto.*;
+import order_items_mgmt.prod_asset.assetsoutward.services.cud.*;
 
 @RestController
 @RequestMapping("/storeOrderAssetOutwardsCUDPublicMgmt")

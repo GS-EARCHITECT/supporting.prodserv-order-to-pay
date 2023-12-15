@@ -13,9 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import jobs.job_work_details_mgmt.model.details.JobWorkDetail;
-import jobs.job_work_details_mgmt.model.dto.JobWorkDetail_DTO;
+import common.model.dto.JobWorkDetail_DTO;
+import common.model.master.JobWorkDetail;
 import jobs.job_work_details_mgmt.model.repo.cud.JobWorkDetailsCUD_Repo;
 
 @Service("jobWorkDetailsCUDServ")
@@ -143,10 +142,10 @@ public class JobWorkDetailsCUD_Service implements I_JobWorkDetailsCUD_Service
 		jobWorkDetailDTO.setJobSeqNo(jobDetail.getJobSeqNo());
 		jobWorkDetailDTO.setJobWorkSeqNo(jobDetail.getJobSeqNo());
 		jobWorkDetailDTO.setManagerSeqNo(jobDetail.getManagerSeqNo());
-		jobWorkDetailDTO.setParentJobSeqNo(jobDetail.getParentJobSeqNo());
 		jobWorkDetailDTO.setServiceWorkSeqNo(jobDetail.getServiceWorkSeqNo());
-		jobWorkDetailDTO.setRemarks(jobDetail.getRemarks());
-		jobWorkDetailDTO.setStatus(jobDetail.getStatus());
+		jobWorkDetailDTO.setParentJobWorkSeqNo(jobDetail.getParentJobWorkSeqNo());		
+		jobWorkDetailDTO.setDoneflag('N');
+		jobWorkDetailDTO.setOkflag('N');		
 		return jobWorkDetailDTO;
 	}
 
@@ -166,10 +165,10 @@ public class JobWorkDetailsCUD_Service implements I_JobWorkDetailsCUD_Service
 		jobDetails.setPlanStartDate(pFrDateTime);
 		jobDetails.setPlanEndDate(pToDateTime);
 		jobDetails.setManagerSeqNo(cDTO.getManagerSeqNo());
-		jobDetails.setParentJobSeqNo(cDTO.getParentJobSeqNo());
+		jobDetails.setParentJobWorkSeqNo(cDTO.getParentJobWorkSeqNo());
 		jobDetails.setServiceWorkSeqNo(cDTO.getServiceWorkSeqNo());
-		jobDetails.setRemarks(cDTO.getRemarks());
-		jobDetails.setStatus(cDTO.getStatus());
+		jobDetails.setDoneflag('N');
+		jobDetails.setOkflag('N');
 		return jobDetails;
 	}
 }

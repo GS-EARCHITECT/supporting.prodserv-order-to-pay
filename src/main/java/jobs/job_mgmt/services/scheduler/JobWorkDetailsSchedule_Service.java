@@ -1,15 +1,11 @@
 package jobs.job_mgmt.services.scheduler;
 
 import org.springframework.stereotype.Service;
-
 import common.api.DateUtil;
 import common.model.dto.*;
 import common.model.master.*;
-import jobs.job_mgmt.model.dto.JobTripReturn_DTO;
 import jobs.job_mgmt.model.repo.common.*;
-import jobs.job_mgmt.model.repo.scheduler.JobTripRepo;
-import jobs.job_mgmt.model.repo.scheduler.JobWorkDetailsCUD_Repo;
-import jobs.job_mgmt.model.repo.scheduler.ServiceWorkMasterCUD_Repo;
+import jobs.job_mgmt.model.repo.scheduler.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

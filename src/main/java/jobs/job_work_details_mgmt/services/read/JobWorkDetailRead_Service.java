@@ -14,9 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import jobs.job_work_details_mgmt.model.details.*;
-import jobs.job_work_details_mgmt.model.dto.JobWorkDetail_DTO;
+import common.model.dto.JobWorkDetail_DTO;
+import common.model.master.JobWorkDetail;
 import jobs.job_work_details_mgmt.model.repo.read.JobWorkDetailsRead_Repo;
 
 @Service("jobWorkDetailsReadServ")
@@ -159,10 +158,10 @@ public class JobWorkDetailRead_Service implements I_JobWorkDetailsRead_Service
 		jobDetailDTO.setJobSeqNo(jobDetail.getJobSeqNo());
 		jobDetailDTO.setJobWorkSeqNo(jobDetail.getJobWorkSeqNo());
 		jobDetailDTO.setManagerSeqNo(jobDetail.getManagerSeqNo());
-		jobDetailDTO.setParentJobSeqNo(jobDetail.getParentJobSeqNo());
+		jobDetailDTO.setParentJobWorkSeqNo(jobDetail.getParentJobWorkSeqNo());
 		jobDetailDTO.setServiceWorkSeqNo(jobDetail.getServiceWorkSeqNo());
-		jobDetailDTO.setRemarks(jobDetail.getRemarks());
-		jobDetailDTO.setStatus(jobDetail.getStatus());
+		jobDetailDTO.setDoneflag('N');
+		jobDetailDTO.setOkflag('N');
 		return jobDetailDTO;
 	}
 

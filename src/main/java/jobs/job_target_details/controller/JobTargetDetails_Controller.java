@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import jobs.job_target_details.model.dto.JobTargetDetail_DTO;
-import jobs.job_target_details.model.master.JobTargetDetailPK;
+import common.model.dto.JobTargetDetail_DTO;
+import common.model.master.JobTargetDetailPK;
 import jobs.job_target_details.services.I_JobTargetDetailsRead_Service;
 
 @RestController

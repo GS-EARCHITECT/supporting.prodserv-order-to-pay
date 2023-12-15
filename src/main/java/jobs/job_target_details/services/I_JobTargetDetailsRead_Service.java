@@ -3,9 +3,8 @@ package jobs.job_target_details.services;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
-
-import jobs.job_target_details.model.dto.JobTargetDetail_DTO;
-import jobs.job_target_details.model.master.JobTargetDetailPK;
+import common.model.dto.JobTargetDetail_DTO;
+import common.model.master.JobTargetDetailPK;
 
 public interface I_JobTargetDetailsRead_Service 
 {

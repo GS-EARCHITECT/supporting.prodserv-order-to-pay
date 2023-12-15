@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import order_items_mgmt.prod_asset.resourcesinward.model.dto.StoreOrderResourceInward_DTO;
+import common.model.dto.StoreOrderResourceInward_DTO;
 import order_items_mgmt.prod_asset.resourcesinward.services.cud.I_StoreOrderResourceInwardsCUDPublic_Service;
 
 @RestController

@@ -11,14 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import jobs.job_target_details.model.dto.JobTargetDetail_DTO;
-import jobs.job_target_details.model.master.*;
+import common.model.dto.JobTargetDetail_DTO;
+import common.model.master.JobTargetDetail;
+import common.model.master.JobTargetDetailPK;
 import jobs.job_target_details.model.repo.JobTargetDetailsRead_Repo;
 
 @Service("jobTargetDetailsReadServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-public class JobTargetDetailsRead_Service implements I_JobTargetDetailsRead_Service {
+public class JobTargetDetailsRead_Service implements I_JobTargetDetailsRead_Service 
+{
 
 	// private static final Logger logger =
 	// LoggerFactory.getLogger(JobTargetDetailService.class);
@@ -45,9 +46,8 @@ public class JobTargetDetailsRead_Service implements I_JobTargetDetailsRead_Serv
 	}
 
 	@Override
-	public CompletableFuture<CopyOnWriteArrayList<JobTargetDetail_DTO>> getAllJobTargetDetailsByIds(
-			CopyOnWriteArrayList<JobTargetDetailPK> jobTargetDetailsPks)
-			throws InterruptedException, ExecutionException {
+	public CompletableFuture<CopyOnWriteArrayList<JobTargetDetail_DTO>> getAllJobTargetDetailsByIds(CopyOnWriteArrayList<JobTargetDetailPK> jobTargetDetailsPks) throws InterruptedException, ExecutionException 
+	{
 		CompletableFuture<CopyOnWriteArrayList<JobTargetDetail_DTO>> future = CompletableFuture.supplyAsync(() -> {
 			CopyOnWriteArrayList<JobTargetDetail> jobTargetDetails = null;
 			CopyOnWriteArrayList<JobTargetDetail_DTO> jobTargetDetailDTOs = null;

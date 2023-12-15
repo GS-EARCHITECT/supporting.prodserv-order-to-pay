@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import order_items_mgmt.prod_asset.assetsinward.model.dto.StoreOrderAssetInward_DTO;
-import order_items_mgmt.prod_asset.assetsinward.model.master.StoreOrderAssetInward;
-import order_items_mgmt.prod_asset.assetsinward.model.repo.read.StoreOrderAssetInwardsReadPublic_Repo;
+import common.model.dto.*;
+import common.model.master.*;
+import order_items_mgmt.prod_asset.assetsinward.model.repo.read.*;
 
 @Service("storeOrderAssetInwardsReadPublicServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -416,7 +415,7 @@ public class StoreOrderAssetInwardsReadPublic_Service implements I_StoreOrderAss
 		storeOrderAssetInward_DTO.setIsBooked(storeOrderAssetInward2.getIsBooked());
 		storeOrderAssetInward_DTO.setJobWorkSeqNo(storeOrderAssetInward2.getJobWorkSeqNo());		
 		storeOrderAssetInward_DTO.setLocationSeqNo(storeOrderAssetInward2.getLocationSeqNo());
-		storeOrderAssetInward_DTO.setModeTxn(storeOrderAssetInward2.getModeTxn());
+		storeOrderAssetInward_DTO.setModeTxnSeqNo(storeOrderAssetInward2.getModeTxn());
 		storeOrderAssetInward_DTO.setMovedFlag(storeOrderAssetInward2.getMovedFlag());
 		storeOrderAssetInward_DTO.setOkflag(storeOrderAssetInward2.getOkflag());
 		storeOrderAssetInward_DTO.setFlagAllocated(storeOrderAssetInward2.getFlagAllocated());

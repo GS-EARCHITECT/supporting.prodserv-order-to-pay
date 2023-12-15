@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import order_items_mgmt.prod_asset.assetsoutward.model.dto.StoreOrderAssetOutward_DTO;
+import common.model.dto.StoreOrderAssetOutward_DTO;
 import order_items_mgmt.prod_asset.assetsoutward.services.read.I_StoreOrderAssetOutwardsReadPublic_Service;
 
 @RestController
 @RequestMapping("/storeOrderAssetOutwardsReadPublicMgmt")
-public class StoreOrderAssetOutwardsReadPublic_Controller {
+public class StoreOrderAssetOutwardsReadPublic_Controller 
+{
 	@Autowired
 	private I_StoreOrderAssetOutwardsReadPublic_Service storeOrderAssetOutwardsReadPublicServ;
 

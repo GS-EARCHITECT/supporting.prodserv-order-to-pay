@@ -3,7 +3,7 @@ package order_items_mgmt.prod_asset.assetsoutward.services.cud;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import order_items_mgmt.prod_asset.assetsoutward.model.dto.StoreOrderAssetOutward_DTO;
+import common.model.dto.StoreOrderAssetOutward_DTO;
 
 public interface I_StoreOrderAssetOutwardsCUDPublic_Service
 {

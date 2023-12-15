@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import order_items_mgmt.prod_asset.assetsinward.model.dto.StoreOrderAssetInward_DTO;
+import common.model.dto.StoreOrderAssetInward_DTO;
 import order_items_mgmt.prod_asset.assetsinward.services.read.I_StoreOrderAssetInwardsReadPublic_Service;
 
 @RestController

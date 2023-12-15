@@ -13,10 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import order_items_mgmt.prod_asset.assetsinward.model.dto.StoreOrderAssetInward_DTO;
-import order_items_mgmt.prod_asset.assetsinward.model.master.StoreOrderAssetInward;
-import order_items_mgmt.prod_asset.assetsinward.model.repo.cud.StoreOrderAssetInwardsCUDPublic_Repo;
+import common.model.dto.*;
+import common.model.master.*;
+import common.model.repo.JobAssetMaster_Repo;
+import jobs.job_mgmt.model.repo.common.JobWorkDetailsRead_Repo;
+import order_items_mgmt.prod_asset.assetsinward.model.repo.cud.*;
 
 @Service("storeOrderAssetInwardsCUDPublicServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -27,6 +28,12 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 
 	@Autowired
 	private StoreOrderAssetInwardsCUDPublic_Repo storeOrderAssetInwardsCUDPublicRepo;
+	
+	@Autowired
+	private	JobWorkDetailsRead_Repo jobWorkDetailsReadRepo;
+	
+	@Autowired
+	private JobAssetMaster_Repo jobAssetMasterRepoCommon;
 	
 	@Autowired
 	private Executor asyncExecutor;
@@ -227,18 +234,6 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 
 	}
 	
-	
-	private synchronized CopyOnWriteArrayList<StoreOrderAssetInward_DTO> getStoreOrderAssetInward_DTOs(CopyOnWriteArrayList<StoreOrderAssetInward> stoMasters) {
-		StoreOrderAssetInward_DTO stoDTO = null;
-		CopyOnWriteArrayList<StoreOrderAssetInward_DTO> stoDTOs = new CopyOnWriteArrayList<StoreOrderAssetInward_DTO>();
-
-		for (int i = 0; i < stoMasters.size(); i++) {
-			stoDTO = getStoreOrderAssetInward_DTO(stoMasters.get(i));
-			stoDTOs.add(stoDTO);
-		}
-		return stoDTOs;
-	}
-
 	private synchronized StoreOrderAssetInward_DTO getStoreOrderAssetInward_DTO(StoreOrderAssetInward storeOrderAssetInward2) 
 	{
 		StoreOrderAssetInward_DTO storeOrderAssetInward_DTO = new StoreOrderAssetInward_DTO();
@@ -250,7 +245,7 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 		storeOrderAssetInward_DTO.setJobWorkSeqNo(storeOrderAssetInward2.getJobWorkSeqNo());
 		storeOrderAssetInward_DTO.setDoneflag(storeOrderAssetInward2.getDoneflag());
 		storeOrderAssetInward_DTO.setLocationSeqNo(storeOrderAssetInward2.getLocationSeqNo());
-		storeOrderAssetInward_DTO.setModeTxn(storeOrderAssetInward2.getModeTxn());
+		storeOrderAssetInward_DTO.setModeTxnSeqNo(storeOrderAssetInward2.getModeTxn());
 		storeOrderAssetInward_DTO.setMovedFlag(storeOrderAssetInward2.getMovedFlag());
 		storeOrderAssetInward_DTO.setOkflag(storeOrderAssetInward2.getOkflag());
 		storeOrderAssetInward_DTO.setFlagAllocated(storeOrderAssetInward2.getFlagAllocated());
@@ -277,11 +272,11 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 		storeOrderAssetInward2.setFromDttm(fs);
 		storeOrderAssetInward2.setToDttm(ts);
 		storeOrderAssetInward2.setDoneflag(storeOrderAssetInward_DTO.getDoneflag());
-		storeOrderAssetInward2.setIsBooked(storeOrderAssetInward_DTO.getIsBooked());
+		storeOrderAssetInward2.setFlagBooked(storeOrderAssetInward_DTO.getFlagBooked());
 		storeOrderAssetInward2.setJobWorkSeqNo(storeOrderAssetInward_DTO.getJobWorkSeqNo());
 		storeOrderAssetInward2.setDoneflag(storeOrderAssetInward_DTO.getDoneflag());
 		storeOrderAssetInward2.setLocationSeqNo(storeOrderAssetInward_DTO.getLocationSeqNo());
-		storeOrderAssetInward2.setModeTxn(storeOrderAssetInward_DTO.getModeTxn());
+		storeOrderAssetInward2.setModeTxn(storeOrderAssetInward_DTO.getModeTxnSeqNo());
 		storeOrderAssetInward2.setMovedFlag(storeOrderAssetInward_DTO.getMovedFlag());
 		storeOrderAssetInward2.setOkflag(storeOrderAssetInward_DTO.getOkflag());
 		storeOrderAssetInward2.setFlagAllocated(storeOrderAssetInward_DTO.getFlagAllocated());
@@ -295,5 +290,5 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 		storeOrderAssetInward2.setTargetWorkSeqNo(storeOrderAssetInward_DTO.getTargetWorkSeqNo());
 		return storeOrderAssetInward2;
 	}
-
+	
 }

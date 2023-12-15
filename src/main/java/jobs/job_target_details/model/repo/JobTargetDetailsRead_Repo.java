@@ -1,14 +1,13 @@
 package jobs.job_target_details.model.repo;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import jobs.job_target_details.model.master.JobTargetDetail;
-import jobs.job_target_details.model.master.JobTargetDetailPK;
+import common.model.master.JobTargetDetail;
+import common.model.master.JobTargetDetailPK;
 
 @Repository("jobTargetDetailsReadRepo")
 public interface JobTargetDetailsRead_Repo extends JpaRepository<JobTargetDetail, JobTargetDetailPK> 

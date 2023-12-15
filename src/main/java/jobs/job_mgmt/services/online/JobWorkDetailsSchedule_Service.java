@@ -2,13 +2,9 @@ package jobs.job_mgmt.services.online;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import common.model.master.JobTripDetails;
-import common.model.master.JobTripDetailsPK;
-import common.model.master.JobWorkDetail;
 import common.api.DateUtil;
-import common.model.dto.JobWorkDetail_DTO;
+import common.model.dto.*;
 import common.model.master.*;
-import jobs.job_mgmt.model.dto.JobTripReturn_DTO;
 import jobs.job_mgmt.model.repo.common.*;
 import jobs.job_mgmt.model.repo.online.*;
 import java.sql.Timestamp;

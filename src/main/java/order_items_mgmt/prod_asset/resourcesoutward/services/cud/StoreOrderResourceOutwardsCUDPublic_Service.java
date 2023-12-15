@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import order_items_mgmt.prod_asset.resourcesoutward.model.dto.StoreOrderResourceOutward_DTO;
-import order_items_mgmt.prod_asset.resourcesoutward.model.master.StoreOrderResourceOutward;
-import order_items_mgmt.prod_asset.resourcesoutward.model.repo.cud.StoreOrderResourceOutwardsCUDPublic_Repo;
+import common.model.dto.*;
+import common.model.master.*;
+import order_items_mgmt.prod_asset.resourcesoutward.model.repo.cud.*;
 
 @Service("storeOrderResourceOutwardsCUDPublicServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -342,7 +341,7 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 		storeOrderResourceOutward_DTO.setJobWorkSeqNo(storeOrderResourceOutward.getJobWorkSeqNo());
 		storeOrderResourceOutward_DTO.setDoneflag(storeOrderResourceOutward.getDoneflag());
 		storeOrderResourceOutward_DTO.setLocationSeqNo(storeOrderResourceOutward.getLocationSeqNo());
-		storeOrderResourceOutward_DTO.setModeTxn(storeOrderResourceOutward.getModeTxn());
+		storeOrderResourceOutward_DTO.setModeTxnSeqNo(storeOrderResourceOutward.getModeTxn());
 		storeOrderResourceOutward_DTO.setMovedQty(storeOrderResourceOutward.getMovedQty());
 		storeOrderResourceOutward_DTO.setOkflag(storeOrderResourceOutward.getOkflag());
 		storeOrderResourceOutward_DTO.setQtyAllocated(storeOrderResourceOutward.getQtyAllocated());
@@ -353,7 +352,7 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 		storeOrderResourceOutward_DTO.setRequestorSeqNo(storeOrderResourceOutward.getRequestorSeqNo());
 		storeOrderResourceOutward_DTO.setResourceSeqNo(storeOrderResourceOutward.getResourceSeqNo());
 		storeOrderResourceOutward_DTO.setStoreRequestSeqNo(storeOrderResourceOutward.getStoreRequestSeqNo());
-		storeOrderResourceOutward_DTO.setFrLocationSeqNo(storeOrderResourceOutward.getFrLocationSeqNo());
+		storeOrderResourceOutward_DTO.setFrLocationSeqNo(storeOrderResourceOutward.getFrLocationSeqN());
 		storeOrderResourceOutward_DTO.setToLocationSeqNo(storeOrderResourceOutward.getToLocationSeqNo());
 		storeOrderResourceOutward_DTO.setTargetWorkSeqNo(storeOrderResourceOutward.getTargetWorkSeqNo());
 		return storeOrderResourceOutward_DTO;
@@ -374,7 +373,7 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 		storeOrderResourceOutward.setJobWorkSeqNo(storeOrderResourceOutward_DTO.getJobWorkSeqNo());
 		storeOrderResourceOutward.setDoneflag(storeOrderResourceOutward_DTO.getDoneflag());
 		storeOrderResourceOutward.setLocationSeqNo(storeOrderResourceOutward_DTO.getLocationSeqNo());
-		storeOrderResourceOutward.setModeTxn(storeOrderResourceOutward_DTO.getModeTxn());
+		storeOrderResourceOutward.setModeTxn(storeOrderResourceOutward_DTO.getModeTxnSeqNo());
 		storeOrderResourceOutward.setMovedQty(storeOrderResourceOutward_DTO.getMovedQty());
 		storeOrderResourceOutward.setOkflag(storeOrderResourceOutward_DTO.getOkflag());
 		storeOrderResourceOutward.setQtyAllocated(storeOrderResourceOutward_DTO.getQtyAllocated());
@@ -384,7 +383,7 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 		storeOrderResourceOutward.setRequestedToPartySeqNo(storeOrderResourceOutward_DTO.getRequestedToPartySeqNo());
 		storeOrderResourceOutward.setRequestorSeqNo(storeOrderResourceOutward_DTO.getRequestorSeqNo());
 		storeOrderResourceOutward.setResourceSeqNo(storeOrderResourceOutward_DTO.getResourceSeqNo());
-		storeOrderResourceOutward.setFrLocationSeqNo(storeOrderResourceOutward_DTO.getFrLocationSeqNo());
+		storeOrderResourceOutward.setFrLocationSeqN(storeOrderResourceOutward_DTO.getFrLocationSeqNo());
 		storeOrderResourceOutward.setToLocationSeqNo(storeOrderResourceOutward_DTO.getToLocationSeqNo());
 		storeOrderResourceOutward.setTargetWorkSeqNo(storeOrderResourceOutward_DTO.getTargetWorkSeqNo());
 		return storeOrderResourceOutward;

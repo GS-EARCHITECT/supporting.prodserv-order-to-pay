@@ -7,8 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import jobs.job_work_details_mgmt.model.details.JobWorkDetail;
+import common.model.master.JobWorkDetail;
 
 @Repository("jobWorkDetailsCUDRepo")
 public interface JobWorkDetailsCUD_Repo extends CrudRepository<JobWorkDetail, Long> 

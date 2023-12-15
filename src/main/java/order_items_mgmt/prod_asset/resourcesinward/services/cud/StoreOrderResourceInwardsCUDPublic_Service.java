@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import order_items_mgmt.prod_asset.resourcesinward.model.dto.StoreOrderResourceInward_DTO;
-import order_items_mgmt.prod_asset.resourcesinward.model.master.StoreOrderResourceInward;
-import order_items_mgmt.prod_asset.resourcesinward.model.repo.cud.StoreOrderResourceInwardsCUDPublic_Repo;
+import common.model.dto.*;
+import common.model.master.*;
+import order_items_mgmt.prod_asset.resourcesinward.model.repo.cud.*;
 
 @Service("storeOrderResourceInwardsCUDPublicServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -331,18 +330,6 @@ public class StoreOrderResourceInwardsCUDPublic_Service implements I_StoreOrderR
 
 	}
 	
-	
-	private synchronized CopyOnWriteArrayList<StoreOrderResourceInward_DTO> getStoreOrderResourceInward_DTOs(CopyOnWriteArrayList<StoreOrderResourceInward> stoMasters) {
-		StoreOrderResourceInward_DTO stoDTO = null;
-		CopyOnWriteArrayList<StoreOrderResourceInward_DTO> stoDTOs = new CopyOnWriteArrayList<StoreOrderResourceInward_DTO>();
-
-		for (int i = 0; i < stoMasters.size(); i++) {
-			stoDTO = getStoreOrderResourceInward_DTO(stoMasters.get(i));
-			stoDTOs.add(stoDTO);
-		}
-		return stoDTOs;
-	}
-
 	private synchronized StoreOrderResourceInward_DTO getStoreOrderResourceInward_DTO(StoreOrderResourceInward storeOrderResourceInward) 
 	{
 		StoreOrderResourceInward_DTO storeOrderResourceInward_DTO = new StoreOrderResourceInward_DTO();
@@ -354,7 +341,7 @@ public class StoreOrderResourceInwardsCUDPublic_Service implements I_StoreOrderR
 		storeOrderResourceInward_DTO.setJobWorkSeqNo(storeOrderResourceInward.getJobWorkSeqNo());
 		storeOrderResourceInward_DTO.setDoneflag(storeOrderResourceInward.getDoneflag());
 		storeOrderResourceInward_DTO.setLocationSeqNo(storeOrderResourceInward.getLocationSeqNo());
-		storeOrderResourceInward_DTO.setModeTxn(storeOrderResourceInward.getModeTxn());
+		storeOrderResourceInward_DTO.setModeTxnSeqNo(storeOrderResourceInward.getModeTxn());
 		storeOrderResourceInward_DTO.setMovedQty(storeOrderResourceInward.getMovedQty());
 		storeOrderResourceInward_DTO.setOkflag(storeOrderResourceInward.getOkflag());
 		storeOrderResourceInward_DTO.setQtyAllocated(storeOrderResourceInward.getQtyAllocated());
@@ -365,7 +352,7 @@ public class StoreOrderResourceInwardsCUDPublic_Service implements I_StoreOrderR
 		storeOrderResourceInward_DTO.setRequestorSeqNo(storeOrderResourceInward.getRequestorSeqNo());
 		storeOrderResourceInward_DTO.setResourceSeqNo(storeOrderResourceInward.getResourceSeqNo());
 		storeOrderResourceInward_DTO.setStoreRequestSeqNo(storeOrderResourceInward.getStoreRequestSeqNo());
-		storeOrderResourceInward_DTO.setFrLocationSeqNo(storeOrderResourceInward.getFrLocationSeqNo());
+		storeOrderResourceInward_DTO.setFrLocationSeqNo(storeOrderResourceInward.getFrLocationSeqN());
 		storeOrderResourceInward_DTO.setToLocationSeqNo(storeOrderResourceInward.getToLocationSeqNo());
 		storeOrderResourceInward_DTO.setTargetWorkSeqNo(storeOrderResourceInward.getTargetWorkSeqNo());
 		return storeOrderResourceInward_DTO;
@@ -386,7 +373,7 @@ public class StoreOrderResourceInwardsCUDPublic_Service implements I_StoreOrderR
 		storeOrderResourceInward.setJobWorkSeqNo(storeOrderResourceInward_DTO.getJobWorkSeqNo());
 		storeOrderResourceInward.setDoneflag(storeOrderResourceInward_DTO.getDoneflag());
 		storeOrderResourceInward.setLocationSeqNo(storeOrderResourceInward_DTO.getLocationSeqNo());
-		storeOrderResourceInward.setModeTxn(storeOrderResourceInward_DTO.getModeTxn());
+		storeOrderResourceInward.setModeTxn(storeOrderResourceInward_DTO.getModeTxnSeqNo());
 		storeOrderResourceInward.setMovedQty(storeOrderResourceInward_DTO.getMovedQty());
 		storeOrderResourceInward.setOkflag(storeOrderResourceInward_DTO.getOkflag());
 		storeOrderResourceInward.setQtyAllocated(storeOrderResourceInward_DTO.getQtyAllocated());
@@ -396,7 +383,7 @@ public class StoreOrderResourceInwardsCUDPublic_Service implements I_StoreOrderR
 		storeOrderResourceInward.setRequestedToPartySeqNo(storeOrderResourceInward_DTO.getRequestedToPartySeqNo());
 		storeOrderResourceInward.setRequestorSeqNo(storeOrderResourceInward_DTO.getRequestorSeqNo());
 		storeOrderResourceInward.setResourceSeqNo(storeOrderResourceInward_DTO.getResourceSeqNo());
-		storeOrderResourceInward.setFrLocationSeqNo(storeOrderResourceInward_DTO.getFrLocationSeqNo());
+		storeOrderResourceInward.setFrLocationSeqN(storeOrderResourceInward_DTO.getFrLocationSeqNo());
 		storeOrderResourceInward.setToLocationSeqNo(storeOrderResourceInward_DTO.getToLocationSeqNo());
 		storeOrderResourceInward.setTargetWorkSeqNo(storeOrderResourceInward_DTO.getTargetWorkSeqNo());
 		return storeOrderResourceInward;

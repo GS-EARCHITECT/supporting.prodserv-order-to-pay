@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import order_items_mgmt.prod_asset.resourcesoutward.model.dto.StoreOrderResourceOutward_DTO;
+import common.model.dto.StoreOrderResourceOutward_DTO;
 import order_items_mgmt.prod_asset.resourcesoutward.services.read.I_StoreOrderResourceOutwardsReadPublic_Service;
 
 @RestController

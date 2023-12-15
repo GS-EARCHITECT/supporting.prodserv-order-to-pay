@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import order_items_mgmt.prod_asset.resourcesinward.model.dto.StoreOrderResourceInward_DTO;
-import order_items_mgmt.prod_asset.resourcesinward.model.master.StoreOrderResourceInward;
-import order_items_mgmt.prod_asset.resourcesinward.model.repo.read.StoreOrderResourceInwardsReadPublic_Repo;
+import common.model.dto.*;
+import common.model.master.*;
+import order_items_mgmt.prod_asset.resourcesinward.model.repo.read.*;
 
 @Service("storeOrderResourceInwardsReadPublicServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -417,7 +416,7 @@ public class StoreOrderResourceInwardsReadPublic_Service implements I_StoreOrder
 		storeOrderResourceInward_DTO.setJobWorkSeqNo(storeOrderResourceInward.getJobWorkSeqNo());
 		storeOrderResourceInward_DTO.setDoneflag(storeOrderResourceInward.getDoneflag());
 		storeOrderResourceInward_DTO.setLocationSeqNo(storeOrderResourceInward.getLocationSeqNo());
-		storeOrderResourceInward_DTO.setModeTxn(storeOrderResourceInward.getModeTxn());
+		storeOrderResourceInward_DTO.setModeTxnSeqNo(storeOrderResourceInward.getModeTxn());
 		storeOrderResourceInward_DTO.setMovedQty(storeOrderResourceInward.getMovedQty());
 		storeOrderResourceInward_DTO.setOkflag(storeOrderResourceInward.getOkflag());
 		storeOrderResourceInward_DTO.setQtyAllocated(storeOrderResourceInward.getQtyAllocated());
@@ -428,7 +427,7 @@ public class StoreOrderResourceInwardsReadPublic_Service implements I_StoreOrder
 		storeOrderResourceInward_DTO.setRequestorSeqNo(storeOrderResourceInward.getRequestorSeqNo());
 		storeOrderResourceInward_DTO.setResourceSeqNo(storeOrderResourceInward.getResourceSeqNo());
 		storeOrderResourceInward_DTO.setStoreRequestSeqNo(storeOrderResourceInward.getStoreRequestSeqNo());
-		storeOrderResourceInward_DTO.setFrLocationSeqNo(storeOrderResourceInward.getFrLocationSeqNo());
+		storeOrderResourceInward_DTO.setFrLocationSeqNo(storeOrderResourceInward.getFrLocationSeqN());
 		storeOrderResourceInward_DTO.setToLocationSeqNo(storeOrderResourceInward.getToLocationSeqNo());
 		storeOrderResourceInward_DTO.setTargetWorkSeqNo(storeOrderResourceInward.getTargetWorkSeqNo());
 		return storeOrderResourceInward_DTO;

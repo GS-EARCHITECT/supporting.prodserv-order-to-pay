@@ -3,7 +3,7 @@ package order_items_mgmt.prod_asset.assetsinward.services.read;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import order_items_mgmt.prod_asset.assetsinward.model.dto.StoreOrderAssetInward_DTO;
+import common.model.dto.StoreOrderAssetInward_DTO;
 
 public interface I_StoreOrderAssetInwardsReadPublic_Service
 {

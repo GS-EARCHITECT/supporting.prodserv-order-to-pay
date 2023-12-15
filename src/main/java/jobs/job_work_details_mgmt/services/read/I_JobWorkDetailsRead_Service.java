@@ -3,8 +3,7 @@ package jobs.job_work_details_mgmt.services.read;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
-
-import jobs.job_work_details_mgmt.model.dto.JobWorkDetail_DTO;
+import common.model.dto.JobWorkDetail_DTO;
 
 public interface I_JobWorkDetailsRead_Service 
 {

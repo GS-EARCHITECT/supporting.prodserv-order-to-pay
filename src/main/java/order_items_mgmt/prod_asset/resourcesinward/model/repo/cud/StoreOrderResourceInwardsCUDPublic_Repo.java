@@ -5,13 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import common.model.master.StoreOrderResourceInward;
 
-import order_items_mgmt.prod_asset.resourcesinward.model.master.StoreOrderResourceInward;
-
-@Transactional(propagation=Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 @Repository("storeOrderResourceInwardsCUDPublicRepoOnLine")
 public interface StoreOrderResourceInwardsCUDPublic_Repo extends JpaRepository<StoreOrderResourceInward, Long> 
 {

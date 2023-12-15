@@ -2,8 +2,8 @@ package order_items_mgmt.prod_asset.assetsinward.services.cud;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
+import common.model.dto.StoreOrderAssetInward_DTO;
 
-import order_items_mgmt.prod_asset.assetsinward.model.dto.StoreOrderAssetInward_DTO;
 
 public interface I_StoreOrderAssetInwardsCUDPublic_Service
 {

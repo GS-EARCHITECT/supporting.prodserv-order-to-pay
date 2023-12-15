@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import jobs.job_work_details_mgmt.model.dto.JobWorkDetail_DTO;
+import common.model.dto.JobWorkDetail_DTO;
 import jobs.job_work_details_mgmt.services.read.I_JobWorkDetailsRead_Service;
 
 @RestController

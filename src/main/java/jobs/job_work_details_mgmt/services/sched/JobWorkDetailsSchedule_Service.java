@@ -20,14 +20,13 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import common.api.DateUtil;
-import jobs.job_work_details_mgmt.model.details.JobStructureTargetDetail;
-import jobs.job_work_details_mgmt.model.details.JobTemplateDetail;
-import jobs.job_work_details_mgmt.model.details.JobTemplateDetailPK;
-import jobs.job_work_details_mgmt.model.details.JobWorkDetail;
-import jobs.job_work_details_mgmt.model.dto.IdsList_DTO;
-import jobs.job_work_details_mgmt.model.dto.JobWorkDetail_DTO;
+import common.model.dto.IdsList_DTO;
+import common.model.dto.JobWorkDetail_DTO;
+import common.model.master.JobStructureTargetDetail;
+import common.model.master.JobTemplateDetail;
+import common.model.master.JobTemplateDetailPK;
+import common.model.master.JobWorkDetail;
 import jobs.job_work_details_mgmt.model.repo.cud.JobWorkDetailsCUD_Repo;
 import jobs.job_work_details_mgmt.model.repo.read.JobWorkDetailsRead_Repo;
 import jobs.job_work_master_mgmt.model.master.JobWorkMaster;
@@ -326,10 +325,10 @@ public class JobWorkDetailsSchedule_Service implements I_JobWorkDetailsSchedule_
 		jobDetailsDTO.setJobSeqNo(jobDetails.getJobSeqNo());
 		jobDetailsDTO.setJobWorkSeqNo(jobDetails.getJobWorkSeqNo());
 		jobDetailsDTO.setManagerSeqNo(jobDetails.getManagerSeqNo());
-		jobDetailsDTO.setParentJobSeqNo(jobDetails.getParentJobSeqNo());
+		jobDetailsDTO.setParentJobWorkSeqNo(jobDetails.getParentJobWorkSeqNo());
 		jobDetailsDTO.setServiceWorkSeqNo(jobDetails.getServiceWorkSeqNo());
-		jobDetailsDTO.setRemarks(jobDetails.getRemarks());
-		jobDetailsDTO.setStatus(jobDetails.getStatus());
+		jobDetailsDTO.setDoneflag('N');
+		jobDetailsDTO.setOkflag('N');		
 		return jobDetailsDTO;
 	}
 
@@ -351,10 +350,10 @@ public class JobWorkDetailsSchedule_Service implements I_JobWorkDetailsSchedule_
 		jobDetails.setPlanEndDate(pToDateTime);
 		jobDetails.setJobSeqNo(cDTO.getJobSeqNo());
 		jobDetails.setManagerSeqNo(cDTO.getManagerSeqNo());
-		jobDetails.setParentJobSeqNo(cDTO.getParentJobSeqNo());
+		jobDetails.setParentJobWorkSeqNo(cDTO.getParentJobWorkSeqNo());
 		jobDetails.setServiceWorkSeqNo(cDTO.getServiceWorkSeqNo());
-		jobDetails.setRemarks(cDTO.getRemarks());
-		jobDetails.setStatus(cDTO.getStatus());
+		jobDetails.setDoneflag('N');
+		jobDetails.setOkflag('N');		
 		return jobDetails;
 	}
 	
