@@ -14,7 +14,7 @@ public class JobAssetResLocationRule_DTO implements Serializable
 	private Long assetSeqNo;
 	private Character exactFlag;
 	private Long jobSeqNo;
-	private Float lessthanDistance;
+	private Double lessthanDistance;
 	private Long resourceSeqNo;
 
 	public Long getJobassetresourceLocSeqNo() {
@@ -57,11 +57,11 @@ public class JobAssetResLocationRule_DTO implements Serializable
 		this.jobSeqNo = jobSeqNo;
 	}
 
-	public Float getLessthanDistance() {
+	public Double getLessthanDistance() {
 		return lessthanDistance;
 	}
 
-	public void setLessthanDistance(Float lessthanDistance) {
+	public void setLessthanDistance(Double lessthanDistance) {
 		this.lessthanDistance = lessthanDistance;
 	}
 
@@ -74,7 +74,7 @@ public class JobAssetResLocationRule_DTO implements Serializable
 	}
 
 	public JobAssetResLocationRule_DTO(Long jobassetresourceLocSeqNo, Character anylocFlag, Long assetSeqNo,
-			Character exactFlag, Long jobSeqNo, Float lessthanDistance, Long resourceSeqNo) {
+			Character exactFlag, Long jobSeqNo, Double lessthanDistance, Long resourceSeqNo) {
 		super();
 		this.jobassetresourceLocSeqNo = jobassetresourceLocSeqNo;
 		this.anylocFlag = anylocFlag;

@@ -133,6 +133,7 @@ public class JobAssetResLocationRulesAdmin_Service implements I_JobAssetResLocat
 		lDTO.setJobSeqNo(lMaster.getJobSeqNo());
 		lDTO.setLessthanDistance(lMaster.getLessthanDistance());
 		lDTO.setResourceSeqNo(lMaster.getResourceSeqNo());
+		
 		return lDTO;
 	}
 

@@ -31,7 +31,7 @@ public class JobAssetResLocationRule implements Serializable {
 	private Long jobSeqNo;
 
 	@Column(name = "LESSTHAN_DISTANCE")
-	private Float lessthanDistance;
+	private Double lessthanDistance;
 
 	@Column(name = "RESOURCE_SEQ_NO")
 	private Long resourceSeqNo;
@@ -79,11 +79,11 @@ public class JobAssetResLocationRule implements Serializable {
 		this.jobSeqNo = jobSeqNo;
 	}
 
-	public Float getLessthanDistance() {
+	public Double getLessthanDistance() {
 		return lessthanDistance;
 	}
 
-	public void setLessthanDistance(Float lessthanDistance) {
+	public void setLessthanDistance(Double lessthanDistance) {
 		this.lessthanDistance = lessthanDistance;
 	}
 
@@ -133,7 +133,7 @@ public class JobAssetResLocationRule implements Serializable {
 	}
 
 	public JobAssetResLocationRule(Long jobassetresourceLocSeqNo, Character anylocFlag, Long assetSeqNo,
-			Character exactFlag, Long jobSeqNo, Float lessthanDistance, Long resourceSeqNo) {
+			Character exactFlag, Long jobSeqNo, Double lessthanDistance, Long resourceSeqNo) {
 		super();
 		this.jobassetresourceLocSeqNo = jobassetresourceLocSeqNo;
 		this.anylocFlag = anylocFlag;

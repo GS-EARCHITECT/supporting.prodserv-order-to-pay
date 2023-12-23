@@ -10,9 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 import common.model.dto.*;
 import common.model.master.*;
 import location_mgmt.orders.model.repo.cud.StoreOrderParamsCUDPublic_Repo;
+import location_mgmt.orders.model.repo.read.StoreOrderParamsReadPublic_Repo;
+import location_mgmt.rules_mgmt.model.repo.pub.JobAssetResLocationRulesPublic_Repo;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service("storeOrderParamsCUDPublicServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -25,7 +30,88 @@ public class StoreOrderParamsCUDPublic_Service implements I_StoreOrderParamsCUDP
 	private StoreOrderParamsCUDPublic_Repo storeOrderParamsCUDPublicRepo;
 
 	@Autowired
+	private StoreOrderParamsReadPublic_Repo storeOrderParamsReadPublicRepoOnLine;
+
+	@Autowired
+	private JobAssetResLocationRulesPublic_Repo jobAssetResLocationRulesPublicRepo;
+
+	@Autowired
+	private WebClient webClient;
+
+	@Autowired
 	private Executor asyncExecutor;
+
+	public CompletableFuture<Void> setSelectJobAssetResLocationParam(Long storeRquestSeqNo, Long jid, Long rid,
+			Long lat, Long lon) {
+		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+			JobAssetResLocationRule jobRes = jobAssetResLocationRulesPublicRepo
+					.getSelectJobAssetResLocationRulesByJobResource(jid, rid);
+			Double ruleDist = (double) 0;
+			String locParam = "";
+			StoreOrderParamsData_DTO storeOrderParamsData_DTO = null;
+			StoreOrderParamsDataPK storeOrderParamsDataPK = null;
+			Flux<ResourceLocationMaster_DTO> specs = null;
+			CopyOnWriteArrayList<ResourceLocationMaster_DTO> specLst = new CopyOnWriteArrayList<ResourceLocationMaster_DTO>();
+			Mono<LocationVector_DTO> locDTO = null;
+			Mono<Integer> specDTO = null;
+			LocationVector_DTO locDTO2 = new LocationVector_DTO();
+			Double locLat = (double) 0;
+			Double locLon = (double) 0;
+			Long ruleLoc = (long) 0;
+			Integer j = 0;
+			CopyOnWriteArrayList<ResourceLocationMaster_DTO> filtLst = new CopyOnWriteArrayList<ResourceLocationMaster_DTO>();
+
+			if (jobRes != null) {
+				ruleDist = jobRes.getLessthanDistance();
+				specs = webClient.get().uri(
+						"/resourceLocationPublicReadManagement/getLocationsByResource/" + jobRes.getResourceSeqNo())
+						.retrieve().bodyToFlux(ResourceLocationMaster_DTO.class);
+				specs.collectList().subscribe(specLst::addAll);
+
+				for (int i = 0; i < specLst.size(); i++) {
+					locDTO = webClient.get()
+							.uri("/locationVectorReadManagement/getLocationVectorsDetailsById/" + ruleLoc).retrieve()
+							.bodyToMono(LocationVector_DTO.class);
+					locDTO2 = locDTO.block();
+					locLat = locDTO2.getLat();
+					locLon = locDTO2.getLon();
+					specDTO = webClient.get()
+							.uri("/api/checkDistancePlain/{" + locLat + "}/{" + locLon + "}/{" + lat + "}/{" + lon
+									+ "}/{" + 0 + "}/{" + 0 + "}/{" + ruleDist + "}")
+							.retrieve().bodyToMono(Integer.class);
+					j = specDTO.block();
+
+					if (j > 0) {
+						filtLst.add(specLst.get(i));
+					}
+				}
+
+				if (filtLst != null && filtLst.size() > 0) {
+					for (int i = 0; i < filtLst.size(); i++) {
+						if (i == 0) {
+							locParam = locParam + filtLst.get(i).toString();
+						} else {
+							locParam = locParam.trim() + "," + filtLst.get(i);
+						}
+					}
+				}
+				storeOrderParamsDataPK = new StoreOrderParamsDataPK();
+				storeOrderParamsDataPK.setStoreRquestSeqNo(storeRquestSeqNo);
+
+				if (storeOrderParamsReadPublicRepoOnLine.findById(storeOrderParamsDataPK).get() != null) {
+					storeOrderParamsCUDPublicRepo.updStoreOrderParamLocation(locParam, storeRquestSeqNo);
+				} else {
+					storeOrderParamsData_DTO = new StoreOrderParamsData_DTO();
+					storeOrderParamsData_DTO.setLocationParams(locParam);
+					storeOrderParamsData_DTO.setStoreRequestSeqNo(storeRquestSeqNo);
+					storeOrderParamsCUDPublicRepo.save(setStoreOrderParamsData(storeOrderParamsData_DTO));
+				}
+			}
+			return;
+		}, asyncExecutor);
+
+		return future;
+	}
 
 	@Override
 	public CompletableFuture<StoreOrderParamsData_DTO> newStoreOrderParam(
@@ -49,7 +135,6 @@ public class StoreOrderParamsCUDPublic_Service implements I_StoreOrderParamsCUDP
 	@Override
 	public CompletableFuture<Void> updStoreOrderParam(StoreOrderParamsData_DTO storeOrderParamsData_DTO) {
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-			StoreOrderParamsData sto = null;
 			StoreOrderParamsDataPK storeOrderParamsDataPK = new StoreOrderParamsDataPK();
 			storeOrderParamsDataPK.setStoreRquestSeqNo(storeOrderParamsData_DTO.getStoreRequestSeqNo());
 
