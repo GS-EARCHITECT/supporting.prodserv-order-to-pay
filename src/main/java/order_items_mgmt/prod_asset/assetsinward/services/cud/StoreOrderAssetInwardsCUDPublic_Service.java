@@ -17,6 +17,7 @@ import common.model.dto.*;
 import common.model.master.*;
 import common.model.repo.JobAssetMaster_Repo;
 import jobs.job_mgmt.model.repo.common.JobWorkDetailsRead_Repo;
+import location_mgmt.orders.services.cud.StoreOrderParamsCUDPublic_Service;
 import order_items_mgmt.prod_asset.assetsinward.model.repo.cud.*;
 
 @Service("storeOrderAssetInwardsCUDPublicServ")
@@ -28,6 +29,9 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 
 	@Autowired
 	private StoreOrderAssetInwardsCUDPublic_Repo storeOrderAssetInwardsCUDPublicRepo;
+	
+	@Autowired
+	private	StoreOrderParamsCUDPublic_Service storeOrderParamsCUDPublicServ;
 	
 	@Autowired
 	private	JobWorkDetailsRead_Repo jobWorkDetailsReadRepo;
@@ -44,9 +48,25 @@ public class StoreOrderAssetInwardsCUDPublic_Service implements I_StoreOrderAsse
 		CompletableFuture<StoreOrderAssetInward_DTO> future = CompletableFuture.supplyAsync(() -> 
 		{
 		StoreOrderAssetInward_DTO stoDTO = null;	
+		StoreOrderParamsDataPK storeOrderParamsDataPK = null;
+		StoreOrderParamsData_DTO storeOrderParamsData_DTO = null;
+		CopyOnWriteArrayList<StoreOrderParamsDataPK> storeOrderNos = null;
+		
 		if(!storeOrderAssetInwardsCUDPublicRepo.existsById(storeOrderAssetInward_DTO.getStoreRequestSeqNo()))
 		{		
 		stoDTO = this.getStoreOrderAssetInward_DTO(storeOrderAssetInwardsCUDPublicRepo.save(this.setStoreOrderAssetInward(storeOrderAssetInward_DTO)));
+		if(stoDTO.getRequestParam()!=null)
+		{
+		storeOrderParamsDataPK = new StoreOrderParamsDataPK();
+		storeOrderParamsData_DTO = new StoreOrderParamsData_DTO(); 
+		storeOrderParamsDataPK.setStoreRquestSeqNo(stoDTO.getStoreRequestSeqNo());
+		storeOrderNos = new CopyOnWriteArrayList<StoreOrderParamsDataPK>();
+		storeOrderNos.add(storeOrderParamsDataPK);		
+		storeOrderParamsCUDPublicServ.delSelectStoreOrderParams(storeOrderNos);
+		storeOrderParamsData_DTO.setStoreRequestSeqNo(stoDTO.getStoreRequestSeqNo());
+		storeOrderParamsData_DTO.setRequestParams(stoDTO.getRequestParam());
+		storeOrderParamsCUDPublicServ.newStoreOrderParam(storeOrderParamsData_DTO);
+		}
 		}
 		return stoDTO;
 		},asyncExecutor);

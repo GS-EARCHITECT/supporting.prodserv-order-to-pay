@@ -33,6 +33,7 @@ public class StoreOrderAssetInwardsCUDPublic_Controller
 		try {
 			future = storeOrderAssetInwardsCUDPublicServ.newStoreOrderInward(storeOrderAssetInward_DTO);
 			st = future.get();
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

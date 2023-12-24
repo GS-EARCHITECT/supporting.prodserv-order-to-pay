@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import common.model.dto.*;
 import common.model.master.*;
+import location_mgmt.orders.services.cud.StoreOrderParamsCUDPublic_Service;
 import order_items_mgmt.prod_asset.resourcesoutward.model.repo.cud.*;
 
 @Service("storeOrderResourceOutwardsCUDPublicServ")
@@ -24,6 +25,9 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 
 //	private static final Logger logger = LoggerFactory.getLogger(StoreOrderResourceOutwardService.class);
 
+	@Autowired
+	private	StoreOrderParamsCUDPublic_Service storeOrderParamsCUDPublicServ;
+	
 	@Autowired
 	private StoreOrderResourceOutwardsCUDPublic_Repo storeOrderResourceOutwardsCUDPublicRepo;
 	
@@ -36,14 +40,31 @@ public class StoreOrderResourceOutwardsCUDPublic_Service implements I_StoreOrder
 		CompletableFuture<StoreOrderResourceOutward_DTO> future = CompletableFuture.supplyAsync(() -> 
 		{
 		StoreOrderResourceOutward_DTO stoDTO = null;	
+		StoreOrderParamsDataPK storeOrderParamsDataPK = null;
+		StoreOrderParamsData_DTO storeOrderParamsData_DTO = null;
+		CopyOnWriteArrayList<StoreOrderParamsDataPK> storeOrderNos = null;
+		
 		if(!storeOrderResourceOutwardsCUDPublicRepo.existsById(storeOrderResourceOutward_DTO.getStoreRequestSeqNo()))
 		{		
 		stoDTO = this.getStoreOrderResourceOutward_DTO(storeOrderResourceOutwardsCUDPublicRepo.save(this.setStoreOrderResourceOutward(storeOrderResourceOutward_DTO)));
+		
+		if(stoDTO.getRequestParam()!=null)
+		{
+		storeOrderParamsDataPK = new StoreOrderParamsDataPK();
+		storeOrderParamsData_DTO = new StoreOrderParamsData_DTO(); 
+		storeOrderParamsDataPK.setStoreRquestSeqNo(stoDTO.getStoreRequestSeqNo());
+		storeOrderNos = new CopyOnWriteArrayList<StoreOrderParamsDataPK>();
+		storeOrderNos.add(storeOrderParamsDataPK);		
+		storeOrderParamsCUDPublicServ.delSelectStoreOrderParams(storeOrderNos);
+		storeOrderParamsData_DTO.setStoreRequestSeqNo(stoDTO.getStoreRequestSeqNo());
+		storeOrderParamsData_DTO.setRequestParams(stoDTO.getRequestParam());
+		storeOrderParamsCUDPublicServ.newStoreOrderParam(storeOrderParamsData_DTO);
+		}
 		}
 		return stoDTO;
 		},asyncExecutor);
 
-	return future;
+		return future;
 
 	}
 

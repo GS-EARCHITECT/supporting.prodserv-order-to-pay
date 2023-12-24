@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import common.model.dto.*;
 import common.model.master.*;
+import location_mgmt.orders.services.cud.StoreOrderParamsCUDPublic_Service;
+import order_items_mgmt.prod_asset.assetsinward.model.repo.cud.StoreOrderAssetInwardsCUDPublic_Repo;
 import order_items_mgmt.prod_asset.assetsoutward.model.repo.cud.*;
 
 @Service("storeOrderAssetOutwardsCUDPublicServ")
@@ -23,7 +25,10 @@ public class StoreOrderAssetOutwardsCUDPublic_Service implements I_StoreOrderAss
 
 	// private static final Logger logger =
 	// LoggerFactory.getLogger(StoreOrderAssetOutwardService.class);
-
+	
+	@Autowired
+	private	StoreOrderParamsCUDPublic_Service storeOrderParamsCUDPublicServ;
+	
 	@Autowired
 	private StoreOrderAssetOutwardsCUDPublic_Repo storeOrderAssetOutwardsCUDPublicRepo;
 
@@ -33,14 +38,32 @@ public class StoreOrderAssetOutwardsCUDPublic_Service implements I_StoreOrderAss
 	@Override
 	public CompletableFuture<StoreOrderAssetOutward_DTO> newStoreOrderOutward(
 			StoreOrderAssetOutward_DTO storeOrderAssetOutward_DTO) {
-		CompletableFuture<StoreOrderAssetOutward_DTO> future = CompletableFuture.supplyAsync(() -> {
-			StoreOrderAssetOutward_DTO stoDTO = null;
-			if (!storeOrderAssetOutwardsCUDPublicRepo.existsById(storeOrderAssetOutward_DTO.getStoreRequestSeqNo())) {
-				stoDTO = this.getStoreOrderAssetOutward_DTO(storeOrderAssetOutwardsCUDPublicRepo
-						.save(this.setStoreOrderAssetOutward(storeOrderAssetOutward_DTO)));
-			}
-			return stoDTO;
-		}, asyncExecutor);
+		CompletableFuture<StoreOrderAssetOutward_DTO> future = CompletableFuture.supplyAsync(() -> 
+		{
+		StoreOrderAssetOutward_DTO stoDTO = null;	
+		StoreOrderParamsDataPK storeOrderParamsDataPK = null;
+		StoreOrderParamsData_DTO storeOrderParamsData_DTO = null;
+		CopyOnWriteArrayList<StoreOrderParamsDataPK> storeOrderNos = null;
+		
+		if(!storeOrderAssetOutwardsCUDPublicRepo.existsById(storeOrderAssetOutward_DTO.getStoreRequestSeqNo()))
+		{		
+		stoDTO = this.getStoreOrderAssetOutward_DTO(storeOrderAssetOutwardsCUDPublicRepo.save(this.setStoreOrderAssetOutward(storeOrderAssetOutward_DTO)));
+		
+		if(stoDTO.getRequestParam()!=null)
+		{
+		storeOrderParamsDataPK = new StoreOrderParamsDataPK();
+		storeOrderParamsData_DTO = new StoreOrderParamsData_DTO(); 
+		storeOrderParamsDataPK.setStoreRquestSeqNo(stoDTO.getStoreRequestSeqNo());
+		storeOrderNos = new CopyOnWriteArrayList<StoreOrderParamsDataPK>();
+		storeOrderNos.add(storeOrderParamsDataPK);		
+		storeOrderParamsCUDPublicServ.delSelectStoreOrderParams(storeOrderNos);
+		storeOrderParamsData_DTO.setStoreRequestSeqNo(stoDTO.getStoreRequestSeqNo());
+		storeOrderParamsData_DTO.setRequestParams(stoDTO.getRequestParam());
+		storeOrderParamsCUDPublicServ.newStoreOrderParam(storeOrderParamsData_DTO);
+		}
+		}
+		return stoDTO;
+		},asyncExecutor);
 
 		return future;
 

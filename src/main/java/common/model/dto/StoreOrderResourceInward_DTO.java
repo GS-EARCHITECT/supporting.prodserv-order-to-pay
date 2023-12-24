@@ -31,6 +31,15 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 	private String toDttm;
 	private Long toLocationSeqNo;
 	private Integer modeTxnSeqNo;
+	private String requestParam;
+
+	public String getRequestParam() {
+		return requestParam;
+	}
+
+	public void setRequestParam(String requestParam) {
+		this.requestParam = requestParam;
+	}
 
 	public Long getStoreRequestSeqNo() {
 		return storeRequestSeqNo;
@@ -216,11 +225,16 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 		this.modeTxnSeqNo = modeTxnSeqNo;
 	}
 
-	public StoreOrderResourceInward_DTO(Long storeRequestSeqNo, Character okflag, Character deleteflag, Character doneflag,
-			Long frLocationSeqNo, String fromDttm, Character isBooked, Long jobWorkSeqNo, String jobitemMode,
-			Long locationSeqNo, Float movedQty, Float qtyAllocated, Float qtyBooked, Float qtyRequested,
-			Long qtyUnitSeqNo, Long requestedToPartySeqNo, Long requestorSeqNo, Long resourceSeqNo, Long targetSeqNo,
-			Long targetWorkSeqNo, String toDttm, Long toLocationSeqNo, Integer modeTxnSeqNo) {
+	public StoreOrderResourceInward_DTO() {
+		super();
+	}
+
+	public StoreOrderResourceInward_DTO(Long storeRequestSeqNo, Character okflag, Character deleteflag,
+			Character doneflag, Long frLocationSeqNo, String fromDttm, Character isBooked, Long jobWorkSeqNo,
+			String jobitemMode, Long locationSeqNo, Float movedQty, Float qtyAllocated, Float qtyBooked,
+			Float qtyRequested, Long qtyUnitSeqNo, Long requestedToPartySeqNo, Long requestorSeqNo, Long resourceSeqNo,
+			Long targetSeqNo, Long targetWorkSeqNo, String toDttm, Long toLocationSeqNo, Integer modeTxnSeqNo,
+			String requestParam) {
 		super();
 		this.storeRequestSeqNo = storeRequestSeqNo;
 		this.okflag = okflag;
@@ -245,10 +259,7 @@ public class StoreOrderResourceInward_DTO implements Serializable {
 		this.toDttm = toDttm;
 		this.toLocationSeqNo = toLocationSeqNo;
 		this.modeTxnSeqNo = modeTxnSeqNo;
-	}
-
-	public StoreOrderResourceInward_DTO() {
-		super();
+		this.requestParam = requestParam;
 	}
 
 }
