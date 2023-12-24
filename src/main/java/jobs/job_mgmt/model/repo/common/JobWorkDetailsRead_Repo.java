@@ -32,6 +32,5 @@ public interface JobWorkDetailsRead_Repo extends JpaRepository<JobWorkDetail, Lo
 	
 	@Query(value = "SELECT job_work_seq_no FROM JOB_work_DETAILS where (ROWNUM=1 and SERVICE_WORK_SEQ_NO = :servWorkSeqNo and JOB_TEMPLATE_SEQ_NO = :templateSeqNo and job_SEQ_NO = :jobSeqNo)",nativeQuery = true) 
 	Long getJobForServiceWork(@Param("servWorkSeqNo") Long servWorkSeqNo, @Param("templateSeqNo") Long templateSeqNo, @Param("jobSeqNo") Long jobSeqNo);
-
 	
 }

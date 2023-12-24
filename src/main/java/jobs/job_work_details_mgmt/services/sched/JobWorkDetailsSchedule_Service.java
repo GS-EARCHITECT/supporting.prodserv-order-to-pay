@@ -28,7 +28,7 @@ import common.model.master.JobTemplateDetail;
 import common.model.master.JobTemplateDetailPK;
 import common.model.master.JobWorkDetail;
 import jobs.job_work_details_mgmt.model.repo.cud.JobWorkDetailsCUD_Repo;
-import jobs.job_work_details_mgmt.model.repo.read.JobWorkDetailsRead_Repo;
+import jobs.job_mgmt.model.repo.common.*;
 import jobs.job_work_master_mgmt.model.master.JobWorkMaster;
 import jobs.job_work_master_mgmt.model.repo.cud.JobWorkMasterCUD_Repo;
 import jobs.job_work_master_mgmt.model.repo.read.JobWorkMasterRead_Repo;

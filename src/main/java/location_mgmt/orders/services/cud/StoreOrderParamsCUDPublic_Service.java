@@ -42,7 +42,7 @@ public class StoreOrderParamsCUDPublic_Service implements I_StoreOrderParamsCUDP
 	private Executor asyncExecutor;
 
 	public CompletableFuture<Void> setSelectJobAssetResLocationParam(Long storeRquestSeqNo, Long jid, Long rid,
-			Long lat, Long lon) {
+			Double lat, Double lon) {
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
 			JobAssetResLocationRule jobRes = jobAssetResLocationRulesPublicRepo
 					.getSelectJobAssetResLocationRulesByJobResource(jid, rid);

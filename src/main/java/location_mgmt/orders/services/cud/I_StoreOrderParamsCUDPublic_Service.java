@@ -8,7 +8,7 @@ import common.model.master.StoreOrderParamsDataPK;
 public interface I_StoreOrderParamsCUDPublic_Service
 {
 	public CompletableFuture<StoreOrderParamsData_DTO> newStoreOrderParam(StoreOrderParamsData_DTO storeOrderParamsData_DTO);
-	public CompletableFuture<Void> setSelectJobAssetResLocationParam(Long storeRquestSeqNo, Long jid, Long rid, Long lat, Long lon);
+	public CompletableFuture<Void> setSelectJobAssetResLocationParam(Long storeRquestSeqNo, Long jid, Long rid, Double lat, Double lon);
 	public CompletableFuture<Void> updStoreOrderParam(StoreOrderParamsData_DTO storeOrderParamsData_DTO);
 	public CompletableFuture<Void> updStoreOrderParamRequest(String reqStr, Long storeReqSeqNo);
 	public CompletableFuture<Void> updStoreOrderParamLocation(String locStr, Long storeReqSeqNo);

@@ -8,9 +8,9 @@ public class ServiceRequestMaster_DTO implements Serializable {
 	 */
 	private static final long serialVersionUID = -6253937430640952512L;
 	private Long requestSeqNo;
-	private Float frPartyLat;
+	private Double frPartyLat;
 	private Long frPartyLocationSeqNo;
-	private Float frPartyLon;
+	private Double frPartyLon;
 	private Long frPartySeqNo;
 	private Long referenceSeqNo;
 	private String requestDttm;
@@ -29,11 +29,11 @@ public class ServiceRequestMaster_DTO implements Serializable {
 		this.requestSeqNo = requestSeqNo;
 	}
 
-	public Float getFrPartyLat() {
+	public Double getFrPartyLat() {
 		return frPartyLat;
 	}
 
-	public void setFrPartyLat(Float frPartyLat) {
+	public void setFrPartyLat(Double frPartyLat) {
 		this.frPartyLat = frPartyLat;
 	}
 
@@ -45,11 +45,11 @@ public class ServiceRequestMaster_DTO implements Serializable {
 		this.frPartyLocationSeqNo = frPartyLocationSeqNo;
 	}
 
-	public Float getFrPartyLon() {
+	public Double getFrPartyLon() {
 		return frPartyLon;
 	}
 
-	public void setFrPartyLon(Float frPartyLon) {
+	public void setFrPartyLon(Double frPartyLon) {
 		this.frPartyLon = frPartyLon;
 	}
 
@@ -129,7 +129,7 @@ public class ServiceRequestMaster_DTO implements Serializable {
 		super();
 	}
 
-	public ServiceRequestMaster_DTO(Long requestSeqNo, Float frPartyLat, Long frPartyLocationSeqNo, Float frPartyLon,
+	public ServiceRequestMaster_DTO(Long requestSeqNo, Double frPartyLat, Long frPartyLocationSeqNo, Double frPartyLon,
 			Long frPartySeqNo, Long referenceSeqNo, String requestDttm, Long toPartyLocationSeqNo, Long toPartySeqNo,
 			String remark, String status, Character doneFlag, Character okFlag) {
 		super();

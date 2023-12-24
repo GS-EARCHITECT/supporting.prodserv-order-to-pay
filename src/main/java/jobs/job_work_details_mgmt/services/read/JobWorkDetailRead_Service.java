@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import common.model.dto.JobWorkDetail_DTO;
 import common.model.master.JobWorkDetail;
-import jobs.job_work_details_mgmt.model.repo.read.JobWorkDetailsRead_Repo;
+import jobs.job_mgmt.model.repo.common.*;
 
 @Service("jobWorkDetailsReadServ")
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)

@@ -20,13 +20,13 @@ public class ServiceRequestMaster implements Serializable {
 	private Long requestSeqNo;
 
 	@Column(name = "FR_PARTY_LAT")
-	private Float frPartyLat;
+	private Double frPartyLat;
 
 	@Column(name = "FR_PARTY_LOCATION_SEQ_NO")
 	private Long frPartyLocationSeqNo;
 
 	@Column(name = "FR_PARTY_LON")
-	private Float frPartyLon;
+	private Double frPartyLon;
 
 	@Column(name = "FR_PARTY_SEQ_NO")
 	private Long frPartySeqNo;
@@ -66,11 +66,11 @@ public class ServiceRequestMaster implements Serializable {
 		this.requestSeqNo = requestSeqNo;
 	}
 
-	public Float getFrPartyLat() {
+	public Double getFrPartyLat() {
 		return frPartyLat;
 	}
 
-	public void setFrPartyLat(Float frPartyLat) {
+	public void setFrPartyLat(Double frPartyLat) {
 		this.frPartyLat = frPartyLat;
 	}
 
@@ -82,11 +82,11 @@ public class ServiceRequestMaster implements Serializable {
 		this.frPartyLocationSeqNo = frPartyLocationSeqNo;
 	}
 
-	public Float getFrPartyLon() {
+	public Double getFrPartyLon() {
 		return frPartyLon;
 	}
 
-	public void setFrPartyLon(Float frPartyLon) {
+	public void setFrPartyLon(Double frPartyLon) {
 		this.frPartyLon = frPartyLon;
 	}
 
@@ -199,7 +199,7 @@ public class ServiceRequestMaster implements Serializable {
 		return true;
 	}
 
-	public ServiceRequestMaster(Long requestSeqNo, Float frPartyLat, Long frPartyLocationSeqNo, Float frPartyLon,
+	public ServiceRequestMaster(Long requestSeqNo, Double frPartyLat, Long frPartyLocationSeqNo, Double frPartyLon,
 			Long frPartySeqNo, Long referenceSeqNo, Timestamp requestDttm, Long toPartyLocationSeqNo, Long toPartySeqNo,
 			String remark, String status, Character doneFlag, Character okFlag) {
 		super();

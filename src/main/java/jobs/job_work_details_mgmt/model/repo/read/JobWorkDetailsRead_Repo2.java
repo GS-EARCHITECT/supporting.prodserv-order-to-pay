@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import common.model.master.JobWorkDetail;
 
 @Repository("jobWorkDetailsReadRepo")
-public interface JobWorkDetailsRead_Repo extends JpaRepository<JobWorkDetail, Long> 
+public interface JobWorkDetailsRead_Repo2 extends JpaRepository<JobWorkDetail, Long> 
 {	
 	@Query(value = "SELECT * FROM JOB_DETAILS where job_work_seq_no in :jobSeqNos ORDER BY job_work_seq_no",nativeQuery = true) 
 	CopyOnWriteArrayList<JobWorkDetail> getSelectJobWorkDetail(@Param("jobSeqNos") CopyOnWriteArrayList<Long> jobSeqNos);
