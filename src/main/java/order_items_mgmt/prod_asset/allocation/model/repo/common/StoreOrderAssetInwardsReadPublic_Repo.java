@@ -6,12 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import common.model.master.StoreOrderAssetInward;
 
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 @Repository("storeOrderAssetInwardsReadPublicRepo")
 public interface StoreOrderAssetInwardsReadPublic_Repo extends JpaRepository<StoreOrderAssetInward, Long> 
 {
@@ -79,7 +75,7 @@ Float getCountMovedBeforeThisRequest(@Param("storeReqSeqNo") Long storeReqSeqNo,
 Float getCountMovedBeforeDTTM(@Param("dTTm") Timestamp dTTm, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Integer mode);
 
 
-//Other QTY Queries
+//Other Queries
 @Query(value = "SELECT COALESCE(count(*),0) FROM STORE_ORDERASSET_INWARDS",nativeQuery = true) 
 Float getTotalRowCount();
 
@@ -90,7 +86,10 @@ CopyOnWriteArrayList<StoreOrderAssetInward> getAllOrderAssetInwards();
 CopyOnWriteArrayList<StoreOrderAssetInward> getAllRowsForMode(@Param("mode") Integer mode);
 
 @Query(value = "SELECT store_request_seq_no FROM STORE_ORDERASSET_INWARDS where MODE_TXN=:mode and upper(trim(doneflag))<> 'Y'  ORDER BY STORE_REQUEST_SEQ_NO",nativeQuery = true) 
-CopyOnWriteArrayList<Long> getAllSeqNosForMode(@Param("mode") Long mode);
+CopyOnWriteArrayList<Long> getAllSeqNosForMode(@Param("mode") Integer mode);
+
+@Query(value = "SELECT store_request_seq_no FROM STORE_ORDERASSET_INWARDS where MODE_TXN=:mode and upper(trim(doneflag))<> 'Y' and upper(trim(flag_allocated))<> 'Y'  ORDER BY STORE_REQUEST_SEQ_NO",nativeQuery = true) 
+CopyOnWriteArrayList<Long> getAllSeqNosForModeNotAllocated(@Param("mode") Integer mode);
 
 @Query(value = "SELECT COALESCE(count(*),0) FROM STORE_ORDERASSET_INWARDS where Asset_SEQ_NO=:assetSeqNo and mode_txn = :mode and FROM_DTTM < :dTTm  and upper(trim(doneflag))<> 'Y'",nativeQuery = true) 
 Float getTotalRowsForAssetsBeforeThisDTTM(@Param("dTTm") Timestamp dTTm, @Param("assetSeqNo") Long assetSeqNo, @Param("mode") Integer mode);
@@ -101,5 +100,10 @@ CopyOnWriteArrayList<StoreOrderAssetInward> getRowsForJobWorks(@Param("jWorkList
 @Query(value = "SELECT * FROM STORE_ORDERASSET_INWARDS  where job_work_seq_no in :jWorkList and upper(trim(doneflag))= 'Y' ORDER BY STORE_REQUEST_SEQ_NO, Asset_SEQ_NO",nativeQuery = true) 
 CopyOnWriteArrayList<StoreOrderAssetInward> getRowsForJobWorksDone(@Param("jWorkList") CopyOnWriteArrayList<Long> jWorkList);
 
+@Query(value = "SELECT asset_seq_no FROM STORE_ORDERASSET_INWARDS  where asset_seq_no = :sSeqNo",nativeQuery = true) 
+Long getAssetSeqNo(@Param("sSeqNo") Long sSeqNo);
+
+@Query(value = "select coalesce(max(store_request_seq_no),0) from STORE_ORDERASSET_INWARDS where store_request_seq_no < :storeReqSeqNo and ASSET_SEQ_NO = :assetSeqNo and upper(trim(flag_Allocated)) = 'Y' and upper(trim(doneflag)) <> 'Y'",nativeQuery = true) 
+Long getLatestAllocationBeforeThisRequest(@Param("storeReqSeqNo") Long storeReqSeqNo, @Param("assetSeqNo") Long assetSeqNo);
 } 
 

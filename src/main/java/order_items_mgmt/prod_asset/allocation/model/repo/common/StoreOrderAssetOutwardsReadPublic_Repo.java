@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import common.model.master.StoreOrderAssetOutward;
 
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 @Repository("storeOrderAssetOutwardsReadPublicRepo")
 public interface StoreOrderAssetOutwardsReadPublic_Repo extends JpaRepository<StoreOrderAssetOutward, Long> 
 {
@@ -100,5 +99,9 @@ CopyOnWriteArrayList<StoreOrderAssetOutward> getRowsForJobWorks(@Param("jWorkLis
 
 @Query(value = "SELECT * FROM STORE_ORDERASSET_OUTWARDS  where job_work_seq_no in :jWorkList and upper(trim(doneflag))= 'Y' ORDER BY STORE_REQUEST_SEQ_NO, Asset_SEQ_NO",nativeQuery = true) 
 CopyOnWriteArrayList<StoreOrderAssetOutward> getRowsForJobWorksDone(@Param("jWorkList") CopyOnWriteArrayList<Long> jWorkList);
+
+@Query(value = "select coalesce(max(store_request_seq_no),0) from STORE_ORDERASSET_OUTWARDS where store_request_seq_no < :storeReqSeqNo and ASSET_SEQ_NO = :assetSeqNo and upper(trim(flag_Allocated)) = 'Y' and upper(trim(doneflag)) <> 'Y'",nativeQuery = true) 
+Long getLatestAllocationBeforeThisRequest(@Param("storeReqSeqNo") Long storeReqSeqNo, @Param("assetSeqNo") Long assetSeqNo);
+
 } 
 

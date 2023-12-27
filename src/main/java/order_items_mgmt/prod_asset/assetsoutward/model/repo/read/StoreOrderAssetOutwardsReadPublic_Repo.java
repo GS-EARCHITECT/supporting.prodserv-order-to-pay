@@ -96,5 +96,6 @@ CopyOnWriteArrayList<StoreOrderAssetOutward> getRowsForJobWorks(@Param("jWorkLis
 
 @Query(value = "SELECT * FROM STORE_ORDERASSET_OUTWARDS  where job_work_seq_no in :jWorkList and upper(trim(doneflag))= 'Y' ORDER BY STORE_REQUEST_SEQ_NO, Asset_SEQ_NO",nativeQuery = true) 
 CopyOnWriteArrayList<StoreOrderAssetOutward> getRowsForJobWorksDone(@Param("jWorkList") CopyOnWriteArrayList<Long> jWorkList);
+
 } 
 

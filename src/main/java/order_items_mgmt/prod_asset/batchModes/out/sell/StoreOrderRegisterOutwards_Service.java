@@ -1,4 +1,4 @@
-package order_items_mgmt.prod_asset.batchModes.out;
+package order_items_mgmt.prod_asset.batchModes.out.sell;
 
 import java.sql.Timestamp;
 
@@ -20,8 +20,8 @@ import storeMovementManager.model.StoreIssueRepo;
 import storeMovementManager.model.StoreMovementMasterPK;
 */
 
-@Service("storeRegisterServ")
-public class StoreRegisterService implements I_StoreRegisterService 
+@Service("storeOrderRegisterOutwardsServ")
+public class StoreOrderRegisterOutwards_Service implements I_StoreOrderRegisterOutwards_Service 
 {
 /*
 	private static final Logger logger = LoggerFactory.getLogger(StoreRegisterService.class);
