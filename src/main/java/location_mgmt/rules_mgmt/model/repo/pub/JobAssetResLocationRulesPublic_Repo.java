@@ -12,7 +12,7 @@ public interface JobAssetResLocationRulesPublic_Repo extends JpaRepository<JobAs
 {
 	
 	@Query(value = "SELECT * FROM JOBASSETRES_LOCATION_RULES where (rownum=1 and JOB_SEQ_NO = :jSeqNo and resource_seq_no = :rSeqNo and lessthan_distance >= 0)",nativeQuery = true) 
-	JobAssetResLocationRule getSelectJobAssetResLocationRulesByJobResource(@Param("jSeqNo") Long jSeqNo, @Param("rSeqNo") Long rSeqNo);
+	JobAssetResLocationRule getSelectJobAssetResLocationRuleByJobResource(@Param("jSeqNo") Long jSeqNo, @Param("rSeqNo") Long rSeqNo);
 
 	@Query(value = "SELECT * FROM JOBASSETRES_LOCATION_RULES where JOB_SEQ_NO in :jList ORDER BY JOBASSETRESOURCE_LOC_SEQ_NO",nativeQuery = true) 
 	CopyOnWriteArrayList<JobAssetResLocationRule> getSelectJobAssetResLocationRulesByJobs(@Param("jList") CopyOnWriteArrayList<Long> jList);

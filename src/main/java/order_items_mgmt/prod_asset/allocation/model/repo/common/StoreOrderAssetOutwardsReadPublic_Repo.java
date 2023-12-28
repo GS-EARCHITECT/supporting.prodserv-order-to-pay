@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import common.model.master.StoreOrderAssetOutward;
 
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 @Repository("storeOrderAssetOutwardsReadPublicRepo")
 public interface StoreOrderAssetOutwardsReadPublic_Repo extends JpaRepository<StoreOrderAssetOutward, Long> 
 {
@@ -100,8 +101,13 @@ CopyOnWriteArrayList<StoreOrderAssetOutward> getRowsForJobWorks(@Param("jWorkLis
 @Query(value = "SELECT * FROM STORE_ORDERASSET_OUTWARDS  where job_work_seq_no in :jWorkList and upper(trim(doneflag))= 'Y' ORDER BY STORE_REQUEST_SEQ_NO, Asset_SEQ_NO",nativeQuery = true) 
 CopyOnWriteArrayList<StoreOrderAssetOutward> getRowsForJobWorksDone(@Param("jWorkList") CopyOnWriteArrayList<Long> jWorkList);
 
+@Query(value = "SELECT store_request_seq_no FROM STORE_ORDERASSET_OUTWARDS where MODE_TXN=:mode and upper(trim(doneflag))<> 'Y' and upper(trim(flag_allocated))<> 'Y'  ORDER BY STORE_REQUEST_SEQ_NO",nativeQuery = true) 
+CopyOnWriteArrayList<Long> getAllSeqNosForModeNotAllocated(@Param("mode") Integer mode);
+
+@Query(value = "SELECT asset_seq_no FROM STORE_ORDERASSET_OUTWARDS  where asset_seq_no = :sSeqNo",nativeQuery = true) 
+Long getAssetSeqNo(@Param("sSeqNo") Long sSeqNo);
+
 @Query(value = "select coalesce(max(store_request_seq_no),0) from STORE_ORDERASSET_OUTWARDS where store_request_seq_no < :storeReqSeqNo and ASSET_SEQ_NO = :assetSeqNo and upper(trim(flag_Allocated)) = 'Y' and upper(trim(doneflag)) <> 'Y'",nativeQuery = true) 
 Long getLatestAllocationBeforeThisRequest(@Param("storeReqSeqNo") Long storeReqSeqNo, @Param("assetSeqNo") Long assetSeqNo);
-
 } 
 

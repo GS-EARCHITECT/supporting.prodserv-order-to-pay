@@ -40,6 +40,19 @@ public class JobAssetResLocationRulesPublic_Service implements I_JobAssetResLoca
 		return future;
 	}
 
+	public CompletableFuture<JobAssetResLocationRule_DTO> getSelectJobAssetResLocationRuleByJobResource(Long jSeqNo, Long rSeqNo)
+	{
+		CompletableFuture<JobAssetResLocationRule_DTO> future = CompletableFuture
+				.supplyAsync(() -> {
+					JobAssetResLocationRule JobAssetResLocationRule = jobAssetResLocationRulesPublicRepo.getSelectJobAssetResLocationRuleByJobResource(jSeqNo, rSeqNo);							
+					JobAssetResLocationRule_DTO lMaster = JobAssetResLocationRule != null	? this.getJobAssetResLocationRule_DTO(JobAssetResLocationRule)	: null;
+					return lMaster;
+				}, asyncExecutor);
+
+		return future;
+	}
+	
+	
 	public CompletableFuture<CopyOnWriteArrayList<JobAssetResLocationRule_DTO>> getSelectJobAssetResLocationRules(
 			CopyOnWriteArrayList<Long> jList) {
 		CompletableFuture<CopyOnWriteArrayList<JobAssetResLocationRule_DTO>> future = CompletableFuture

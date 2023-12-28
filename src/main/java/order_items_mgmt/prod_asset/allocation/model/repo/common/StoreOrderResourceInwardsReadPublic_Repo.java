@@ -90,7 +90,7 @@ CopyOnWriteArrayList<StoreOrderResourceInward> getAllOrderResourceInwards();
 CopyOnWriteArrayList<StoreOrderResourceInward> getAllRowsForMode(@Param("mode") Integer mode);
 
 @Query(value = "SELECT store_request_seq_no FROM STORE_ORDERRESOURCE_INWARDS where MODE_TXN=:mode and upper(trim(doneflag))<> 'Y'  ORDER BY STORE_REQUEST_SEQ_NO",nativeQuery = true) 
-CopyOnWriteArrayList<Long> getAllSeqNosForMode(@Param("mode") Long mode);
+CopyOnWriteArrayList<Long> getAllSeqNosForMode(@Param("mode") Integer mode);
 
 @Query(value = "SELECT COALESCE(count(*),0) FROM STORE_ORDERRESOURCE_INWARDS where Resource_SEQ_NO=:resourceSeqNo and mode_txn = :mode and FROM_DTTM < :dTTm  and upper(trim(doneflag))<> 'Y'",nativeQuery = true) 
 Float getTotalRowsForResourcesBeforeThisDTTM(@Param("dTTm") Timestamp dTTm, @Param("resourceSeqNo") Long resourceSeqNo, @Param("mode") Integer mode);

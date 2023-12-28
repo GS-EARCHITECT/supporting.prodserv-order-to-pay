@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,15 @@ public class JobAssetResLocationRulesPublic_Controller
 		CopyOnWriteArrayList<JobAssetResLocationRule_DTO> JobAssetResLocationRuleDTOs = future.join();
 		return new ResponseEntity<>(JobAssetResLocationRuleDTOs, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/getSelectJobAssetResLocationRuleByJobResource/{jSeqNo}/{rSeqNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<JobAssetResLocationRule_DTO> getSelectJobAssetResLocationRuleByJobResource(@PathVariable Long jSeqNo, @PathVariable Long rSeqNo)
+	{
+		CompletableFuture<JobAssetResLocationRule_DTO> future = jobAssetResLocationRulesPublicServ.getSelectJobAssetResLocationRuleByJobResource(jSeqNo, rSeqNo);		
+		JobAssetResLocationRule_DTO jobAssetResLocationRuleDTO = future.join();
+		return new ResponseEntity<>(jobAssetResLocationRuleDTO, HttpStatus.OK);
+	}
+
 	
 	@GetMapping(value = "/getSelectJobAssetResLocationRulesByJobs", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CopyOnWriteArrayList<JobAssetResLocationRule_DTO>> getSelectJobAssetResLocationRulesByJobs(@RequestBody CopyOnWriteArrayList<Long> jSeqNos) 

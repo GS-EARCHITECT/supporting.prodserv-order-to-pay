@@ -20,7 +20,6 @@ import request_mgmt.model.master.ServiceRequestMaster;
 import request_mgmt.model.repo.read.ServiceRequestMasterRead_Repo;
 
 @Service("storeOrderResourceInwardsBatchPublicServ")
-@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 public class StoreOrderResourceInwardsBatchPublic_Service implements I_StoreOrderResourceInwardsBatchPublic_Service 
 {
 

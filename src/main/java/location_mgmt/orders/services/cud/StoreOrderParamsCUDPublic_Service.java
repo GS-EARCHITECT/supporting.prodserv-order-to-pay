@@ -44,8 +44,7 @@ public class StoreOrderParamsCUDPublic_Service implements I_StoreOrderParamsCUDP
 	public CompletableFuture<Void> setSelectJobAssetResLocationParam(Long storeRquestSeqNo, Long jid, Long rid,
 			Double lat, Double lon) {
 		CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-			JobAssetResLocationRule jobRes = jobAssetResLocationRulesPublicRepo
-					.getSelectJobAssetResLocationRulesByJobResource(jid, rid);
+			JobAssetResLocationRule jobRes = jobAssetResLocationRulesPublicRepo.getSelectJobAssetResLocationRuleByJobResource(jid, rid);
 			Double ruleDist = (double) 0;
 			String locParam = "";
 			StoreOrderParamsData_DTO storeOrderParamsData_DTO = null;

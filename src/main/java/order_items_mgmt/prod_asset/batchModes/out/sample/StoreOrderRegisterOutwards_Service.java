@@ -1,4 +1,4 @@
-package order_items_mgmt.prod_asset.batchModes.out.sell;
+package order_items_mgmt.prod_asset.batchModes.out.sample;
 
 import java.sql.Timestamp;
 
@@ -350,13 +350,8 @@ public class StoreOrderRegisterOutwards_Service implements I_StoreOrderRegisterO
     {
 		float eff_totReqQty = 0;
 		float eff_totAllocQty = 0;
-		
 		eff_totReqQty = storeRegisterRepo.getTotalQtyRequestedForItem(eff_storeSeqNo, eff_itemSeqNo);
 		eff_totAllocQty = storeRegisterRepo.getTotalQtyAllocForItem(eff_storeSeqNo, eff_itemSeqNo);
-		logger.info("SALE seq no :"+eff_storeSeqNo);
-		logger.info("SALE req total :"+eff_totReqQty);
-		logger.info("SALE alloc total :"+eff_totAllocQty);
-	    
 		return (eff_totReqQty - eff_totAllocQty);	
 		}
 	

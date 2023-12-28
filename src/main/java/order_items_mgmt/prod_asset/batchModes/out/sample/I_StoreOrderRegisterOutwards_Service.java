@@ -1,4 +1,4 @@
-package order_items_mgmt.prod_asset.batchModes.out.transfer_out;
+package order_items_mgmt.prod_asset.batchModes.out.sample;
 
 public interface I_StoreOrderRegisterOutwards_Service
 {
